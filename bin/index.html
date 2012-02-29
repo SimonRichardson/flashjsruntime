@@ -1,0 +1,32 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap</title>
+
+  <script src="../src/Base.js"></script>
+  
+  <script src="../src/TopLevel.js"></script>
+  
+  <script src="../src/FlashJSNamespace.js"></script>
+  <script src="../src/FlashJSBase.js"></script>
+  <script src="../src/flash/events/Event.js"></script>
+  <script src="../src/flash/events/IEventDispatcher.js"></script>
+  <script src="../src/flash/events/EventDispatcher.js"></script>
+  <script src="../src/flash/utils/getQualifiedClassName.js"></script>
+  <script>
+  	
+  	var dispatcher = new flash.events.EventDispatcher();
+  	trace(is(dispatcher, flash.events.IEventDispatcher));
+  	trace(is(dispatcher, flash.events.EventDispatcher));
+  	trace(is(dispatcher, flash.events.Event));
+  	trace(dispatcher.dispatchEvent());
+  	trace(flash.utils.getQualifiedClassName(flash.events.EventDispatcher));
+  	
+  	var event = new flash.events.Event(flash.events.Event.ACTIVATE);
+  	trace(event.type);
+  
+  </script>
+</head>
+<body>
+</body>
+</head>
