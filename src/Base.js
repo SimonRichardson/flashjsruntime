@@ -145,14 +145,28 @@ Base = Base.extend({
 		
 	implement: function() {
 		// Merge namespaces		
-		var ns = this.prototype.reflection.namespaces;
+		var ns = this.prototype.reflection.namespace;
+		var nss = this.prototype.reflection.namespaces;
+		
 		var total = arguments.length;
 		for(var i=0; i<total; i++){
 			var klass = arguments[i];
-			var klassNs = klass.prototype.reflection.namespaces;
-			var klassNsTotal = klassNs.length;
-			for(var j=0; j<klassNsTotal; j++) {
-				ns.push(klassNs[j]);
+			// check it implements the interface correctly
+			var klassNs = klass.prototype.reflection.namespace;
+			for(var k in klass.prototype) {
+				if(!(k in this.prototype)) {
+					var interfaceName = klassNs.toString();
+					var instanceName = ns.toString();
+					throw new Error('Interface method ' + k + ' in namespace ' + interfaceName + 
+									' not implemented by class ' + instanceName + '.');
+				}
+			}
+			
+			// Update namespaces
+			var klassNss = klass.prototype.reflection.namespaces;
+			var klassNssTotal = klassNss.length;
+			for(var j=0; j<klassNssTotal; j++) {
+				nss.push(klassNss[j]);
 			}
 		}
 	},
