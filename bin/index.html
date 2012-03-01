@@ -39,6 +39,8 @@
   	var event = new flash.events.Event(flash.events.Event.ADDED);
   	dispatcher.dispatchEvent(event);
   	
+  	trace(dispatcher.reflection.isInterface);
+  	trace(new flash.events.IEventDispatcher().reflection.isInterface)
   </script>
 </head>
 <body>

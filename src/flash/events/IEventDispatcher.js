@@ -10,12 +10,10 @@ flash.events.IEventDispatcher = FlashJSBase.extend({
 	removeEventListener: function(type, listener, useCapture){
 	},
 	willTrigger: function(type){
-	},
-	cunt: function(){
-		
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'events', 'IEventDispatcher')
+		namespace: new FlashJSNamespace('flash', 'events', 'IEventDispatcher'),
+		isInterface: true
 	}
 });

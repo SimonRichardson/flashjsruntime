@@ -63,7 +63,9 @@ Base.extend = function(_instance, _static) { // subclass
 	}
 	if(_static) {
 		if('reflection' in _static) {
-			var namespace = _static.reflection.namespace;
+			var staticReflection = _static.reflection;
+			var namespace = staticReflection.namespace;
+			reflection.isInterface = staticReflection.isInterface ? true : false;
 			reflection.namespace = namespace;
 			reflection.namespaces.push(namespace);
 		}
@@ -147,18 +149,21 @@ Base = Base.extend({
 		// Merge namespaces		
 		var ns = this.prototype.reflection.namespace;
 		var nss = this.prototype.reflection.namespaces;
+		var isInterface = this.prototype.reflection.isInterface;
 		
 		var total = arguments.length;
 		for(var i=0; i<total; i++){
 			var klass = arguments[i];
 			// check it implements the interface correctly
-			var klassNs = klass.prototype.reflection.namespace;
-			for(var k in klass.prototype) {
-				if(!(k in this.prototype)) {
-					var interfaceName = klassNs.toString();
-					var instanceName = ns.toString();
-					throw new Error('Interface method ' + k + ' in namespace ' + interfaceName + 
-									' not implemented by class ' + instanceName + '.');
+			if(!isInterface) {
+				var klassNs = klass.prototype.reflection.namespace;
+				for(var k in klass.prototype) {
+					if(!(k in this.prototype)) {
+						var interfaceName = klassNs.toString();
+						var instanceName = ns.toString();
+						throw new Error('Interface method ' + k + ' in namespace ' + interfaceName + 
+										' not implemented by class ' + instanceName + '.');
+					}
 				}
 			}
 			
