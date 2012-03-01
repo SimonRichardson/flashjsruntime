@@ -21,14 +21,11 @@
   <script>
   	
   	var dispatcher = new flash.events.EventDispatcher();
-  	trace(is(dispatcher, flash.events.IEventDispatcher));
-  	trace(is(dispatcher, flash.events.EventDispatcher));
-  	trace(is(dispatcher, flash.events.Event));
-  	trace(dispatcher.dispatchEvent());
-  	trace(flash.utils.getQualifiedClassName(flash.events.EventDispatcher));
+  	dispatcher.addEventListener(flash.events.Event.ADDED, 1);
   	
-  	var event = new flash.events.Event(flash.events.Event.ACTIVATE);
-  	trace(event);
+  	trace(dispatcher.reflection.namespaces);
+  	//trace(is(dispatcher, flash.events.Event));
+  	//trace(is(dispatcher, flash.events.IEventDispatcher));
   </script>
 </head>
 <body>

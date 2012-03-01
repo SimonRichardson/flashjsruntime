@@ -15,24 +15,6 @@ Base.extend = function(_instance, _static) { // subclass
 	Base._prototyping = true;
 	var proto = new this;
 	
-	// We need to tie them together so we can do reflection easily
-	if(!('reflection' in proto)) {
-		proto.reflection = {};
-	}
-	
-	var reflection = proto.reflection;
-	if(!('namespaces' in reflection)) {
-		reflection.namespaces = [];
-	}
-	
-	if(_static) {
-		if('reflection' in _static) {
-			var namespace = _static.reflection.namespace;
-			reflection.namespace = namespace;
-			reflection.namespaces.push(namespace);
-		}
-	}
-	
 	extend.call(proto, _instance);
     proto.base = function() {
       // call this method from any other method to invoke that method's ancestor
@@ -64,6 +46,27 @@ Base.extend = function(_instance, _static) { // subclass
 	klass.valueOf = function(type) {
 		return (type == "object") ? klass : constructor.valueOf();
 	};
+	
+	// Reflection API
+	if(!this.prototype.reflection) {
+		this.prototype.reflection = {};
+	}
+	klass.prototype.reflection = reflection = {};
+	for(var i in this.prototype.reflection) {
+		reflection[i] = this.prototype.reflection[i];
+	}
+	if(!('namespaces' in reflection)) {
+		reflection.namespaces = [];
+	} else {
+		reflection.namespaces = reflection.namespaces.slice(0);
+	}
+	if(_static) {
+		if('reflection' in _static) {
+			var namespace = _static.reflection.namespace;
+			reflection.namespace = namespace;
+			reflection.namespaces.push(namespace);
+		}
+	}
 	
 	extend.call(klass, _static);
 	// class initialisation
@@ -140,16 +143,7 @@ Base = Base.extend({
 	},
 		
 	implement: function() {
-		for (var i = 0; i < arguments.length; i++) {
-			if (typeof arguments[i] == "function") {
-				// if it's a function, call it
-				arguments[i](this.prototype);
-			} else {
-				// add the interface using the extend method
-				this.prototype.extend(arguments[i]);
-			}
-		}
-		return this;
+		
 	},
 	
 	toString: function() {
