@@ -3,31 +3,14 @@ function trace() {
 }
 
 // Errors
-function ReferenceError(message, id){
-	this.message = message;
-	this.id = id;
-	
-	Error.apply(this, arguments);
+// Hate doing this, but don't really have a nice way of doing this!
+Error.prototype.toString = function(){
+	var str = "";
+	if(this.name) str += this.name;
+	if(!isNaN(this.id)) str += ((str.length > 0) ? ": " : "") + "Error #" + this.id;
+	if(this.message) str += ((str.length > 0) ? ": " : "") + this.message;
+	return str;
 }
-ReferenceError.prototype = new Error();
-ReferenceError.prototype.constructor = ReferenceError;
-ReferenceError.prototype.name = 'ReferenceError';
-ReferenceError.prototype.toString = function() {
-	return this.name + ": Error #"+ this.id +": " + this.message + ".";
-};
-
-function IllegalArgumentError(message, id) {
-	this.message = message;
-	this.id = id;
-	
-    Error.apply(this, arguments);
-}
-IllegalArgumentError.prototype = new Error();
-IllegalArgumentError.prototype.constructor = IllegalArgumentError;
-IllegalArgumentError.prototype.name = 'IllegalArgumentError';
-IllegalArgumentError.prototype.toString = function() {
-	return this.name + ": Error #"+ this.id +": " + this.message + ".";
-};
 
 function ArgumentError(message, id) {
 	this.message = message;
@@ -38,9 +21,38 @@ function ArgumentError(message, id) {
 ArgumentError.prototype = new Error();
 ArgumentError.prototype.constructor = ArgumentError;
 ArgumentError.prototype.name = 'ArgumentError';
-ArgumentError.prototype.toString = function() {
-	return this.name + ": Error #"+ this.id +": " + this.message + ".";
-};
+
+function IllegalArgumentError(message, id) {
+	this.message = message;
+	this.id = id;
+	
+    Error.apply(this, arguments);
+}
+IllegalArgumentError.prototype = new Error();
+IllegalArgumentError.prototype.constructor = IllegalArgumentError;
+IllegalArgumentError.prototype.name = 'IllegalArgumentError';
+
+function ReferenceError(message, id){
+	this.message = message;
+	this.id = id;
+	
+	Error.apply(this, arguments);
+}
+ReferenceError.prototype = new Error();
+ReferenceError.prototype.constructor = ReferenceError;
+ReferenceError.prototype.name = 'ReferenceError';
+
+function TypeError(message, id){
+	this.message = message;
+	this.id = id;
+	
+	Error.apply(this, arguments);
+}
+TypeError.prototype = new Error();
+TypeError.prototype.constructor = TypeError;
+TypeError.prototype.name = 'TypeError';
+
+
 
 // Aliases
 function is(instance, klass) {

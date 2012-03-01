@@ -21,10 +21,7 @@
   <script>
   	
   	var dispatcher = new flash.events.EventDispatcher();
-  	dispatcher.addEventListener(flash.events.Event.ADDED, 1);
-  	
-  	trace(is(dispatcher, flash.events.Event));
-  	trace(is(dispatcher, flash.events.IEventDispatcher));
+  	dispatcher.addEventListener(flash.events.Event.ADDED, null);
   </script>
 </head>
 <body>

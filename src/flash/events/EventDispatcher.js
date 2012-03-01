@@ -10,8 +10,10 @@ flash.events.EventDispatcher = FlashJSBase.extend({
 		if(arguments.length < 2) {
 			throw new ArgumentError('Argument count mismatch on ' + 
 									this.reflection.namespace.getFullPath() + '/addEventListener().' +
-									'Expected 2, got ' + arguments.length + '.');
+									'Expected 2, got ' + arguments.length + '.', 1063);
 		}
+		if(null == type) throw new TypeError('Parameter type must be non-null.', 2007)
+		if(null == listener) throw new TypeError('Parameter listener must be non-null.', 2007)
 		
 		var list = (type in this._.hash) ? this._.hash[type] : [];
 		
