@@ -38,6 +38,16 @@ IllegalArgumentError.prototype = new Error();
 IllegalArgumentError.prototype.constructor = IllegalArgumentError;
 IllegalArgumentError.prototype.name = 'IllegalArgumentError';
 
+function IllegalOperationError(message, id) {
+	this.message = message;
+	this.id = id;
+	
+    Error.apply(this, arguments);
+}
+IllegalOperationError.prototype = new Error();
+IllegalOperationError.prototype.constructor = IllegalOperationError;
+IllegalOperationError.prototype.name = 'IllegalOperationError';
+
 function ReferenceError(message, id){
 	this.message = message;
 	this.id = id;
