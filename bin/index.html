@@ -7,6 +7,9 @@
   
   <script src="../src/TopLevel.js"></script>
   
+  <script src="../src/utils/bind.js"></script>
+  <script src="../src/utils/StringUtils.js"></script>
+  
   <script src="../src/FlashJSNamespace.js"></script>
   <script src="../src/FlashJSBase.js"></script>
   <script src="../src/flash/events/Event.js"></script>
@@ -23,8 +26,6 @@
   	trace(flash.utils.getQualifiedClassName(flash.events.EventDispatcher));
   	
   	var event = new flash.events.Event(flash.events.Event.ACTIVATE);
-  	trace(event.type);
-  
   </script>
 </head>
 <body>

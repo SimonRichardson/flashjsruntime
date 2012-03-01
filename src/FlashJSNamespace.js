@@ -4,12 +4,12 @@ var FlashJSNamespace = Base.extend({
 		this.className = this.namespace.pop();
 	},
 	getClassName: function() {
-		return this.namespace[this.namespace.length - 1];
+		return this.className;
 	},
 	getFullPath: function() {
 		return this.namespace.join(".") + "." + this.className;
 	}, 
 	toString: function() {
-		return this.namespace.join(".") + "::" + this.className;;
+		return this.namespace.join(".") + "::" + this.className;
 	}
 });

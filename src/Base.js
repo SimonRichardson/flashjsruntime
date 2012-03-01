@@ -16,17 +16,17 @@ Base.extend = function(_instance, _static) { // subclass
 	var proto = new this;
 	
 	// We need to tie them together so we can do reflection easily
-	if(!proto.hasOwnProperty('reflection')) {
+	if(!('reflection' in proto)) {
 		proto.reflection = {};
 	}
 	
 	var reflection = proto.reflection;
-	if(!reflection.hasOwnProperty('namespaces')) {
+	if(!('namespaces' in reflection)) {
 		reflection.namespaces = [];
 	}
 	
 	if(_static) {
-		if(_static.hasOwnProperty('reflection')) {
+		if('reflection' in _static) {
 			var namespace = _static.reflection.namespace;
 			reflection.namespace = namespace;
 			reflection.namespaces.push(namespace);
@@ -34,9 +34,9 @@ Base.extend = function(_instance, _static) { // subclass
 	}
 	
 	extend.call(proto, _instance);
-  proto.base = function() {
-    // call this method from any other method to invoke that method's ancestor
-  };
+    proto.base = function() {
+      // call this method from any other method to invoke that method's ancestor
+    };
 	delete Base._prototyping;
 	
 	// create the wrapper for the constructor function
@@ -62,13 +62,12 @@ Base.extend = function(_instance, _static) { // subclass
 	klass.prototype = proto;
 	klass.toString = this.toString;
 	klass.valueOf = function(type) {
-		//return (type == "object") ? klass : constructor; //-dean
 		return (type == "object") ? klass : constructor.valueOf();
 	};
 	
 	extend.call(klass, _static);
 	// class initialisation
-	if (typeof klass.init == "function") klass.init();
+	if (typeof klass.init == "function") klass.init(klass);
 	return klass;
 };
 

@@ -3,15 +3,53 @@ flash.events = flash.events || {};
 flash.events.Event = FlashJSBase.extend({
 	constructor: function(type, bubbles, cancelable) {
 		this.base();
-		this.__defineGetter__("type", function() {
-			return type;
+		
+		this._.target = null;
+		this._.currentTarget = null;
+		this._.preventDefault = false;
+		this._.stopPropagation = false;
+		this._.stopImmediatePropagation = false;
+		
+		this.define("target", {
+			get: function() {
+				return this._.target;
+			}
 		});
-		this.__defineGetter__("bubbles", function() {
-			return bubbles;
+		this.define("currentTarget", {
+			get: function() {
+				return this._.currentTarget;
+			}
 		});
-		this.__defineGetter__("cancelable", function() {
-			return cancelable;
+		this.define("type", {
+			get: function() {
+				return type;
+			}
 		});
+		this.define("bubbles", {
+			get: function() {
+				return bubbles;
+			}
+		});
+		this.define("cancelable", {
+			get: function() {
+				return cancelable;
+			}
+		});
+	},
+	isDefaultPrevented: function() {
+		return this._.preventDefault == true;
+	},
+	preventDefault: function() {
+		this._.preventDefault;
+	},
+	stopImmediatePropagation: function() {
+		this._.stopImmediatePropagation = true;
+	},
+	stopPropagation: function() {
+		this._.stopPropagation = true;
+	},
+	clone: function() {
+		return new Event(this.type, this.bubbles, this.cancelable);
 	}
 }, {
 	reflection: {
