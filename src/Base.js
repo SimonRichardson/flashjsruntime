@@ -143,7 +143,17 @@ Base = Base.extend({
 	},
 		
 	implement: function() {
-		
+		// Merge namespaces		
+		var ns = this.prototype.reflection.namespaces;
+		var total = arguments.length;
+		for(var i=0; i<total; i++){
+			var klass = arguments[i];
+			var klassNs = klass.prototype.reflection.namespaces;
+			var klassNsTotal = klassNs.length;
+			for(var j=0; j<klassNsTotal; j++) {
+				ns.push(klassNs[j]);
+			}
+		}
 	},
 	
 	toString: function() {

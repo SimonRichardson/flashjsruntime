@@ -7,7 +7,6 @@ flash.events.EventDispatcher = FlashJSBase.extend({
 		this._.hash = {};
 	},
 	addEventListener: function(type, listener, useCapture, priority, useWeakReference) {
-		trace(arguments.length);
 		if(arguments.length < 2) {
 			throw new ArgumentError('Argument count mismatch on ' + 
 									this.reflection.namespace.getFullPath() + '/addEventListener().' +

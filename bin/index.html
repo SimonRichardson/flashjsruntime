@@ -23,9 +23,8 @@
   	var dispatcher = new flash.events.EventDispatcher();
   	dispatcher.addEventListener(flash.events.Event.ADDED, 1);
   	
-  	trace(dispatcher.reflection.namespaces);
-  	//trace(is(dispatcher, flash.events.Event));
-  	//trace(is(dispatcher, flash.events.IEventDispatcher));
+  	trace(is(dispatcher, flash.events.Event));
+  	trace(is(dispatcher, flash.events.IEventDispatcher));
   </script>
 </head>
 <body>
