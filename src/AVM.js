@@ -14,6 +14,7 @@ var AVM = FlashJSBase.extend({
 		if(qname instanceof FlashJSNamespace) {
 			qname = qname.getQualifiedName();
 		}
+		trace(qname);
 		this._.definitions[qname] = klass;
 	},
 	hasDefinition: function(qname){

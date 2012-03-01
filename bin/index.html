@@ -28,13 +28,17 @@
   
   <script src="../src/flash/display/DisplayObject.js"></script>
   
+  <script src="../src/flash/utils/ByteArray.js"></script>
   <script src="../src/flash/utils/getDefinitionByName.js"></script>
   <script src="../src/flash/utils/getQualifiedClassName.js"></script>
   <script src="../src/flash/utils/getTimer.js"></script>
   <script src="../src/flash/utils/Timer.js"></script> 
   
   <script>
-  	trace(flash.utils.getDefinitionByName("trace")('fuck'));
+  	var array = new flash.utils.ByteArray();
+  	array.writeByte(1000);
+  	array.position = 0;
+  	trace(">>", array.readByte());
   </script>
 </head>
 <body>
