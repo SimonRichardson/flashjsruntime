@@ -8,7 +8,6 @@ utils.Reflect = {
 			var namespaces = instance.reflection.namespaces;
 			var total = namespaces.length;
 			for(var i=0; i<total; i++) {
-				trace(namespaces[i].toString());
 				if(namespaces[i].toString() === namespace) {
 					return true;
 				}

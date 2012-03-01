@@ -55,6 +55,7 @@ Base.extend = function(_instance, _static) { // subclass
 	for(var i in this.prototype.reflection) {
 		reflection[i] = this.prototype.reflection[i];
 	}
+	reflection.ancestor = this;
 	if(!('namespaces' in reflection)) {
 		reflection.namespaces = [];
 	} else {

@@ -2,6 +2,8 @@ var flash = flash || {};
 flash.events = flash.events || {};
 flash.events.Event = FlashJSBase.extend({
 	constructor: function(type, bubbles, cancelable) {
+		if(null == type) throw new TypeError('Parameter type must be non-null.', 2007);
+		
 		this.base();
 		
 		bubbles = !bubbles ? false : true;

@@ -21,7 +21,24 @@
   <script>
   	
   	var dispatcher = new flash.events.EventDispatcher();
-  	dispatcher.addEventListener(flash.events.Event.ADDED, null);
+  	
+  	var a = function(event) {
+  		trace("a");
+  	};
+  	var b = function(event) {
+  		trace("b", this);
+  		dispatcher.removeEventListener(flash.events.Event.ADDED, a);
+  	};
+  	
+  	dispatcher.addEventListener(flash.events.Event.ADDED, a, false, 0);
+  	dispatcher.addEventListener(flash.events.Event.ADDED, b, false, 1);
+  	
+  	trace(dispatcher.hasEventListener(flash.events.Event.ADDED));
+  	trace(dispatcher.willTrigger(flash.events.Event.ADDED));
+  	
+  	var event = new flash.events.Event(flash.events.Event.ADDED);
+  	dispatcher.dispatchEvent(event);
+  	
   </script>
 </head>
 <body>

@@ -1,5 +1,11 @@
+// Global methods
 function trace() {
 	console.log(Array.prototype.slice.call(arguments).join(" "));
+}
+
+//Aliases
+function is(instance, klass) {
+	return utils.Reflect.is(instance, klass);
 }
 
 // Errors
@@ -51,10 +57,3 @@ function TypeError(message, id){
 TypeError.prototype = new Error();
 TypeError.prototype.constructor = TypeError;
 TypeError.prototype.name = 'TypeError';
-
-
-
-// Aliases
-function is(instance, klass) {
-	return utils.Reflect.is(instance, klass);
-}

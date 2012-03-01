@@ -67,7 +67,9 @@ var FlashJSBase = Base.extend({
 		return "[object " + this.reflection.namespace.getClassName() + "]";
 	}
 }, {
-	namespace: new FlashJSNamespace("Object"),
+	reflection: {
+		namespace: new FlashJSNamespace('Object')
+	},
 	init: function(klass) {
 		klass.nativeGetter = ('__defineGetter__' in this);
 		klass.nativeSetter = ('__defineSetter__' in this);
