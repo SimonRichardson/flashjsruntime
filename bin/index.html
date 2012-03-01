@@ -18,36 +18,29 @@
   <script src="../src/flash/events/EventPhase.js"></script>
   <script src="../src/flash/events/IEventDispatcher.js"></script>
   <script src="../src/flash/events/EventDispatcher.js"></script>
+  <script src="../src/flash/events/TimerEvent.js"></script>
   
+  <script src="../src/flash/geom/ColorTransform.js"></script>
   <script src="../src/flash/geom/Matrix.js"></script>
   <script src="../src/flash/geom/Point.js"></script>
   <script src="../src/flash/geom/Rectangle.js"></script>
   
   <script src="../src/flash/display/DisplayObject.js"></script>
-  <script src="../src/flash/utils/getQualifiedClassName.js"></script>  
+  
+  <script src="../src/flash/utils/getQualifiedClassName.js"></script>
+  <script src="../src/flash/utils/Timer.js"></script>  
   <script>
-  	
-  	var dispatcher = new flash.events.EventDispatcher();
-  	
   	var a = function(event) {
-  		trace("a");
+  		trace("a" + timer.currentCount);
   	};
   	var b = function(event) {
   		trace("b", this);
-  		dispatcher.removeEventListener(flash.events.Event.ADDED, a);
   	};
   	
-  	dispatcher.addEventListener(flash.events.Event.ADDED, bind(a, this), false, 0);
-  	dispatcher.addEventListener(flash.events.Event.ADDED, bind(b, this), false, 1);
-  	
-  	trace(dispatcher.hasEventListener(flash.events.Event.ADDED));
-  	trace(dispatcher.willTrigger(flash.events.Event.ADDED));
-  	
-  	var event = new flash.events.Event(flash.events.Event.ADDED);
-  	dispatcher.dispatchEvent(event);
-  	
-  	trace(dispatcher.reflection.isInterface);
-  	trace(new flash.events.IEventDispatcher().reflection.isInterface)
+  	var timer = new flash.utils.Timer(500, 5);
+  	timer.addEventListener(flash.events.TimerEvent.TIMER, bind(a, this));
+  	timer.addEventListener(flash.events.TimerEvent.TIMER_COMPLETE, bind(b, this));
+  	timer.start();
   </script>
 </head>
 <body>

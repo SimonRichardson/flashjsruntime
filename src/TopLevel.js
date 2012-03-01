@@ -51,6 +51,16 @@ IllegalOperationError.prototype = new Error();
 IllegalOperationError.prototype.constructor = IllegalOperationError;
 IllegalOperationError.prototype.name = 'IllegalOperationError';
 
+function RangeError(message, id){
+	this.message = message;
+	this.id = id;
+	
+	Error.apply(this, arguments);
+}
+RangeError.prototype = new Error();
+RangeError.prototype.constructor = RangeError;
+RangeError.prototype.name = 'RangeError';
+
 function ReferenceError(message, id){
 	this.message = message;
 	this.id = id;
