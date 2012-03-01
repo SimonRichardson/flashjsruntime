@@ -4,11 +4,16 @@ flash.events.Event = FlashJSBase.extend({
 	constructor: function(type, bubbles, cancelable) {
 		this.base();
 		
+		bubbles = !bubbles ? false : true;
+		cancelable = !cancelable ? false : true;
+		
 		this._.target = null;
 		this._.currentTarget = null;
 		this._.preventDefault = false;
 		this._.stopPropagation = false;
 		this._.stopImmediatePropagation = false;
+		
+		this._.eventPhase = flash.events.EventPhase.AT_TARGET;
 		
 		this.define("target", {
 			get: function() {
@@ -20,6 +25,12 @@ flash.events.Event = FlashJSBase.extend({
 				return this._.currentTarget;
 			}
 		});
+		this.define("eventPhase", {
+			get: function() {
+				return this._.eventPhase;
+			}
+		});
+		
 		this.define("type", {
 			get: function() {
 				return type;
@@ -50,6 +61,26 @@ flash.events.Event = FlashJSBase.extend({
 	},
 	clone: function() {
 		return new Event(this.type, this.bubbles, this.cancelable);
+	}, 
+	formatToString: function(name) {
+		var str = '[' + name;
+		
+		var total = arguments.length;
+		if(total > 1) {
+			str += " ";
+			for(var i=1; i<total; i++) {
+				var argName = arguments[i];
+				var arg = this.get(argName);
+				
+				str += argName + "=" + ((typeof arg === "string") ? '"' + arg + '"' : arg);
+				if(i < total - 1) str += " ";
+			}
+		}
+		
+		return str + ']';
+	},
+	toString: function() {
+		return this.formatToString('Event', 'type', 'bubbles', 'cancelable', 'eventPhase');
 	}
 }, {
 	reflection: {

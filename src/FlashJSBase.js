@@ -45,7 +45,9 @@ var FlashJSBase = Base.extend({
 				this[this.__getHash__[name]]();
 			}
 		} else {
-			throw new Error("No such method");
+			throw new ReferenceError("Property " + name + " not found on " + 
+									 this.reflection.namespace.getFullPath() + " ant there is " +
+									 "no default value", 1069);
 		}
 	},
 	set: function(name, value) {
@@ -56,7 +58,9 @@ var FlashJSBase = Base.extend({
 				this[this.__setHash__[name]](value);
 			}
 		} else {
-			throw new Error("No such method");
+			throw new ReferenceError("Property " + name + " not found on " + 
+					 this.reflection.namespace.getFullPath() + " ant there is " +
+					 "no default value", 1069);
 		}
 	},
 	toString: function() {

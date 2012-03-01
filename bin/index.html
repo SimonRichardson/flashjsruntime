@@ -14,6 +14,7 @@
   <script src="../src/FlashJSNamespace.js"></script>
   <script src="../src/FlashJSBase.js"></script>
   <script src="../src/flash/events/Event.js"></script>
+  <script src="../src/flash/events/EventPhase.js"></script>
   <script src="../src/flash/events/IEventDispatcher.js"></script>
   <script src="../src/flash/events/EventDispatcher.js"></script>
   <script src="../src/flash/utils/getQualifiedClassName.js"></script>
@@ -27,6 +28,7 @@
   	trace(flash.utils.getQualifiedClassName(flash.events.EventDispatcher));
   	
   	var event = new flash.events.Event(flash.events.Event.ACTIVATE);
+  	trace(event);
   </script>
 </head>
 <body>
