@@ -20,7 +20,12 @@ flash.events.EventDispatcher = FlashJSBase.extend({
 		var list = (type in this._.hash) ? this._.hash[type] : [];
 		
 		var eventListener = new flash.events.EventDispatcher.EventListener(type, listener, useCapture, priority);
-		eventListener.method = utils.bind(this._.target, listener);
+		if(listener.__bind__) {
+			eventListener.listener = listener.__method__;
+			eventListener.method = listener;
+		} else {
+			eventListener.method = utils.bind(this._.target, listener);
+		}
 		
 		list.push(eventListener);
 		list.sort(flash.events.EventDispatcher.sort);

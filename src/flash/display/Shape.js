@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.display = flash.display || {};
-flash.display.Shape = DisplayObject.extend({
+flash.display.Shape = flash.display.DisplayObject.extend({
 	constructor: function(){
 		this.base();
 	}

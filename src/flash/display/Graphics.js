@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.display = flash.display || {};
-flash.display.Bitmap = flash.display.DisplayObject.extend({
+flash.display.Graphics = FlashJSBase.extend({
 	constructor: function(){
 		this.base();
 	}

@@ -7,6 +7,9 @@ function trace() {
 function is(instance, klass) {
 	return utils.Reflect.is(instance, klass);
 }
+function bind(method, scope) {
+	return utils.bind(scope, method);
+}
 
 // Errors
 // Hate doing this, but don't really have a nice way of doing this!

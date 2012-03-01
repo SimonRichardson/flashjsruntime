@@ -1,14 +1,15 @@
 var utils = utils || {};
-utils.bind = function(obj, func){
+utils.bind = function(obj, method){
     var f = function() {
-        var target = arguments.callee.target;
-        var func = arguments.callee.func;
+        var target = arguments.callee.__target__;
+        var method = arguments.callee.__method__;
 
-        return func.apply(target, arguments);
+        return method.apply(target, arguments);
     };
 
-    f.target = obj;
-    f.func = func;
+    f.__target__ = obj;
+    f.__method__ = method;
+    f.__bind__ = true;
 
     return f;
 }
