@@ -81,4 +81,8 @@ flash.utils.Timer = flash.events.EventDispatcher.extend({
 	    }
 	    this._.iteration = 0;
 	}
+}, {
+	reflection: {
+		namespace: new FlashJSNamespace('flash', 'utils', 'Timer')
+	}
 });

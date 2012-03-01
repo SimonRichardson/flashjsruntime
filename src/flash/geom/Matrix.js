@@ -94,7 +94,8 @@ flash.geom.Matrix = FlashJSBase.extend({
     	tx = tx === undefined ? 0 : tx;
     	ty = ty === undefined ? 0 : ty;
     	
-        this.createBox(width / 1638.4, height / 1638.4, rotation, tx + width / 2, ty + height / 2);
+    	var gradDimension = flash.utils.Matrix.GRADIENT_DIMENSION;
+        this.createBox(width / gradDimension, height / gradDimension, rotation, tx + width / 2, ty + height / 2);
     },
     rotate: function(angle) {
         var a = Math.cos(angle);
@@ -118,5 +119,8 @@ flash.geom.Matrix = FlashJSBase.extend({
         return "(a=" + this.a + ", b=" + this.b + ", c=" + this.c + ", d=" + this.d + ", tx=" + this.tx + ", ty=" + this.ty + ")";
     }
 }, {
+	reflection: {
+		namespace: new FlashJSNamespace('flash', 'geom', 'ColorTransform')
+	},
 	GRADIENT_DIMENSION: 1638.4
 });

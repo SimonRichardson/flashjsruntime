@@ -13,6 +13,7 @@
   
   <script src="../src/FlashJSNamespace.js"></script>
   <script src="../src/FlashJSBase.js"></script>
+  <script src="../src/AVM.js"></script>
   
   <script src="../src/flash/events/Event.js"></script>
   <script src="../src/flash/events/EventPhase.js"></script>
@@ -27,22 +28,13 @@
   
   <script src="../src/flash/display/DisplayObject.js"></script>
   
+  <script src="../src/flash/utils/getDefinitionByName.js"></script>
   <script src="../src/flash/utils/getQualifiedClassName.js"></script>
   <script src="../src/flash/utils/getTimer.js"></script>
   <script src="../src/flash/utils/Timer.js"></script> 
-  <script src="../src/AVM.js"></script>
+  
   <script>
-  	var a = function(event) {
-  		trace("a" + flash.utils.getTimer());
-  	};
-  	var b = function(event) {
-  		trace("b", this);
-  	};
-  	
-  	var timer = new flash.utils.Timer(500, 5);
-  	timer.addEventListener(flash.events.TimerEvent.TIMER, bind(a, this));
-  	timer.addEventListener(flash.events.TimerEvent.TIMER_COMPLETE, bind(b, this));
-  	timer.start();
+  	trace(flash.utils.getDefinitionByName("trace")('fuck'));
   </script>
 </head>
 <body>

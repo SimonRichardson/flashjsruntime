@@ -41,4 +41,8 @@ flash.geom.ColorTransform = FlashJSBase.extend({
 	toString: function() {
 		return "(redMultiplier=" + this.redMultiplier + ", greenMultiplier=" + this.greenMultiplier + ", blueMultiplier=" + this.blueMultiplier + ", alphaMultiplier=" + this.alphaMultiplier + ", redOffset=" + this.redOffset + ", greenOffset=" + this.greenOffset + ", blueOffset=" + this.blueOffset + ", alphaOffset=" + this.alphaOffset + ")";
 	}
+}, {
+	reflection: {
+		namespace: new FlashJSNamespace('flash', 'geom', 'ColorTransform')
+	}
 });

@@ -44,30 +44,30 @@ flash.events.EventDispatcher = FlashJSBase.extend({
 											  'null object reference.', 1009);
 		
 		var list = this._.hash[event.get('type')];
-		
-		var index = list.length;
-		while(--index > -1) {
-			var listener = list[index];
-			if(!listener.removed) {
-				listener.method(event);
+		if(list) {
+			var index = list.length;
+			while(--index > -1) {
+				var listener = list[index];
+				if(!listener.removed) {
+					listener.method(event);
+				}
 			}
-		}
-		
-		// Remove items when
-		var defer = this._.defer;
-		
-		index = defer.length;
-		while(--index > -1) {
-			var loc = list.indexOf(defer[index]);
-			if(loc < 0) {
-				throw new IllegalOperationError();
-			} else {
-				list.splice(loc, 1);
+			
+			// Remove items when
+			var defer = this._.defer;
+			
+			index = defer.length;
+			while(--index > -1) {
+				var loc = list.indexOf(defer[index]);
+				if(loc < 0) {
+					throw new IllegalOperationError();
+				} else {
+					list.splice(loc, 1);
+				}
 			}
+			
+			defer.length = 0;
 		}
-		
-		defer.length = 0;
-		
 		this._.dispatching = false;
 	},
 	hasEventListener: function(type){

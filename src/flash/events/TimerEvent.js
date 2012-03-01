@@ -11,6 +11,9 @@ flash.events.TimerEvent = flash.events.Event.extend({
 		return this.formatToString('TimerEvent', 'type', 'bubbles', 'cancelable', 'eventPhase');
 	}
 }, {
+	reflection: {
+		namespace: new FlashJSNamespace('flash', 'events', 'TimerEvent')
+	},
 	TIMER: "timer",
 	TIMER_COMPLETE: "timerComplete"
 });

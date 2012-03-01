@@ -41,6 +41,9 @@ flash.geom.Point = FlashJSBase.extend({
         return "(x=" + this.x + ", y=" + this.y + ")";
     }
 }, {
+	reflection: {
+		namespace: new FlashJSNamespace('flash', 'geom', 'Point')
+	},
 	interpolate: function(point1, point2, f) {
         return new Point(point2.x + f * (point1.x - point2.x), point2.y + f * (point1.y - point2.y));
     },

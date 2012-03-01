@@ -170,4 +170,8 @@ flash.geom.Rectangle = FlashJSBase.extend({
     toString: function() {
         return "(x=" + this.x + ", y=" + this.y + ", w=" + this.width + ", h=" + this.height + ")";
     }
+}, {
+	reflection: {
+		namespace: new FlashJSNamespace('flash', 'geom', 'Rectangle')
+	}
 });

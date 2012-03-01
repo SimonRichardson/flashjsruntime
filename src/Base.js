@@ -68,6 +68,10 @@ Base.extend = function(_instance, _static) { // subclass
 			reflection.isInterface = staticReflection.isInterface ? true : false;
 			reflection.namespace = namespace;
 			reflection.namespaces.push(namespace);
+			
+			if(window.avm) {
+				window.avm.addDefinition(namespace.getQualifiedName(), klass);
+			}
 		}
 	}
 	
