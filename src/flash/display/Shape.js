@@ -5,6 +5,14 @@ flash.display.Shape = flash.display.DisplayObject.extend({
 		flash.display.DisplayObject.properties.lock = false;
 		this.base();
 		flash.display.DisplayObject.properties.lock = true;
+		
+		var scope = this;
+		
+		this._.graphics = new flash.display.Graphics();
+		
+		this.define('graphics', {
+			get: function(){ return scope._.graphics; }
+		});
 	}
 }, {
 	reflection: {

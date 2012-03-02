@@ -11,9 +11,10 @@
   <script src="../src/utils/Reflect.js"></script>
   <script src="../src/utils/StringUtils.js"></script>
   
-  <script src="../src/FlashJSNamespace.js"></script>
-  <script src="../src/FlashJSBase.js"></script>
-  <script src="../src/AVM.js"></script>
+  <script src="../src/RemedyNamespace.js"></script>
+  <script src="../src/RemedyBase.js"></script>
+  <script src="../src/render/RemedyCanvas.js"></script>
+  <script src="../src/RemedyAVM.js"></script>
   
   <script src="../src/flash/events/Event.js"></script>
   <script src="../src/flash/events/EventPhase.js"></script>
@@ -47,21 +48,9 @@
   
   <script>
   	var root = new flash.display.Sprite();
-  	root.name = "root";
-  	root.addEventListener('added', function(event){
-  		trace('root', event.target.name, event.currentTarget.name);
-  		//root.removeChild(event.target);
-  	});
+  	root.graphics.beginFill(0xff00ff, 1);
+  	root.graphics.drawCircle(100, 100, 1);
   	
-  	var child = new flash.display.Sprite();
-  	child.name = "child";
-  	child.addEventListener('added', function(event){
-  		trace('child', event.target.name, event.currentTarget.name);
-  	});
-  	
-  	root.addChild(child);
-  	
-  	trace(root._.children);
   </script>
 </head>
 <body>

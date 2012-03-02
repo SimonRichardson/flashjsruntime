@@ -4,10 +4,18 @@ var AVM = FlashJSBase.extend({
 		this._.bootTime = new Date().getTime();
 		this._.instances = 0;
 		this._.definitions = {};
+		this._.renderer = new render.FlashJSCanvas();
+		
+		var scope = this;
 		
 		this.define('bootTime', {
 			get: function(){
-				return this._.bootTime;
+				return scope._.bootTime;
+			}
+		});
+		this.define('renderer', {
+			get: function(){
+				return scope._.renderer;
 			}
 		});
 	},

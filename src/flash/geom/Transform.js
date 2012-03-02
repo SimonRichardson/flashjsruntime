@@ -4,6 +4,8 @@ flash.geom.Transform = FlashJSBase.extend({
 	constructor: function(displayObject){
 		this.base();
 		
+		var scope = this;
+		
 		this._.displayObject = displayObject;
 		this._.matrix = null;
 		this._.colorTransform = null;
@@ -14,29 +16,29 @@ flash.geom.Transform = FlashJSBase.extend({
 		this._.perspectiveProjection = null;
 		
 		this.define('matrix', {
-			get: function(){ return this._.matrix; },
-			set: function(value) { this._.matrix = value; }
+			get: function(){ return scope._.matrix; },
+			set: function(value) { scope._.matrix = value; }
 		});
 		this.define('colorTransform', {
-			get: function(){ return this._.colorTransform; },
-			set: function(value) { this._.colorTransform = value; }
+			get: function(){ return scope._.colorTransform; },
+			set: function(value) { scope._.colorTransform = value; }
 		});
 		this.define('concatenatedMatrix', {
-			get: function(){ return this._.concatenatedMatrix; }
+			get: function(){ return scope._.concatenatedMatrix; }
 		});
 		this.define('concatenatedColorTransform', {
-			get: function(){ return this._.concatenatedColorTransform; }
+			get: function(){ return scope._.concatenatedColorTransform; }
 		});
 		this.define('pixelBounds', {
-			get: function(){ return this._.pixelBounds; }
+			get: function(){ return scope._.pixelBounds; }
 		});
 		this.define('matrix3D', {
-			get: function(){ return this._.matrix3D; },
-			set: function(value) { this._.matrix3D = value; }
+			get: function(){ return scope._.matrix3D; },
+			set: function(value) { scope._.matrix3D = value; }
 		});
 		this.define('perspectiveProjection', {
-			get: function(){ return this._.perspectiveProjection; },
-			set: function(value) { this._.perspectiveProjection = value; }
+			get: function(){ return scope._.perspectiveProjection; },
+			set: function(value) { scope._.perspectiveProjection = value; }
 		});
 	},
 	getRelativeMatrix3D: function(relativeTo) {
