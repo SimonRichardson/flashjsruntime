@@ -1,8 +1,8 @@
 var flash = flash || {};
 flash.utils = flash.utils || {};
 flash.utils.getDefinitionByName = function(qname) {
-	if(avm.hasDefinition(qname)) {
-		return avm.getDefinition(qname);
+	if(RemedyAVM.hasStaticDefinition(qname)) {
+		return RemedyAVM.getStaticDefinition(qname);
 	} else {
 		// Brute force!
 		var parts = qname.split(".");
@@ -14,4 +14,4 @@ flash.utils.getDefinitionByName = function(qname) {
 		return (typeof result == "function")? result : null;
 	}
 };
-avm.addDefinition(new FlashJSNamespace('flash', 'utils', 'getDefinitionByName'), flash.utils.getDefinitionByName);
+RemedyAVM.addStaticDefinition(new RemedyNamespace('flash', 'utils', 'getDefinitionByName'), flash.utils.getDefinitionByName);

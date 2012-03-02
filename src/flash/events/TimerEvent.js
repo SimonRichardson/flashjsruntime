@@ -12,7 +12,7 @@ flash.events.TimerEvent = flash.events.Event.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'events', 'TimerEvent')
+		namespace: new RemedyNamespace('flash', 'events', 'TimerEvent')
 	},
 	TIMER: "timer",
 	TIMER_COMPLETE: "timerComplete"

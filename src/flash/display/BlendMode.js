@@ -1,12 +1,12 @@
 var flash = flash || {};
 flash.display = flash.display || {};
-flash.display.BlendMode = FlashJSBase.extend({
+flash.display.BlendMode = RemedyBase.extend({
 	constructor: function(){
 		this.base();
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'display', 'BlendMode')
+		namespace: new RemedyNamespace('flash', 'display', 'BlendMode')
 	},
 	NORMAL: "normal",
 	LAYER: "layer",

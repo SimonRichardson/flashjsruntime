@@ -6,6 +6,6 @@ flash.display.LoaderInfo = flash.events.EventDispatcher.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'display', 'LoaderInfo')
+		namespace: new RemedyNamespace('flash', 'display', 'LoaderInfo')
 	}
 });

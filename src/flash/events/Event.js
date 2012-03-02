@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.events = flash.events || {};
-flash.events.Event = FlashJSBase.extend({
+flash.events.Event = RemedyBase.extend({
 	constructor: function(type, bubbles, cancelable) {
 		if(null == type) throw new TypeError('Parameter type must be non-null.', 2007);
 		
@@ -87,7 +87,7 @@ flash.events.Event = FlashJSBase.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'events', 'Event')
+		namespace: new RemedyNamespace('flash', 'events', 'Event')
 	},
 	ACTIVATE : "activate",
 	ADDED : "added",

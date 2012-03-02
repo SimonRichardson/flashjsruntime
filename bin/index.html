@@ -1,13 +1,14 @@
 <!doctype html>
 <head>
   <meta charset="utf-8">
-  <title>Bootstrap</title>
+  <title>Remedy Bootstrap</title>
 
   <script src="../src/Base.js"></script>
   
   <script src="../src/TopLevel.js"></script>
   
   <script src="../src/utils/bind.js"></script>
+  <script src="../src/utils/ColorUtils.js"></script>
   <script src="../src/utils/Reflect.js"></script>
   <script src="../src/utils/StringUtils.js"></script>
   
@@ -45,14 +46,22 @@
   <script src="../src/flash/utils/getQualifiedClassName.js"></script>
   <script src="../src/flash/utils/getTimer.js"></script>
   <script src="../src/flash/utils/Timer.js"></script> 
-  
-  <script>
-  	var root = new flash.display.Sprite();
-  	root.graphics.beginFill(0xff00ff, 1);
-  	root.graphics.drawCircle(100, 100, 1);
-  	
-  </script>
 </head>
 <body>
+  <script>
+  	var Test = flash.display.Sprite.extend({
+  		constructor: function(){
+  			this.base();
+  			
+  			var g = this.graphics;
+  			
+  			g.beginFill(0xff00ff, 1);
+  	  	  	g.drawCircle(100, 100, 100);
+  		}
+  	});
+  	
+  	var avm = new RemedyAVM();
+  	avm.boot(Test);
+  </script>
 </body>
 </head>

@@ -1,18 +1,41 @@
 var flash = flash || {};
 flash.display = flash.display || {};
-flash.display.Graphics = FlashJSBase.extend({
+flash.display.Graphics = RemedyBase.extend({
 	constructor: function(){
 		this.base();
 		
-		this._.renderer = flash.display.Graphics.RENDERER;
+		this._.renderer = RemedyAVM.getRenderer();
+	},
+	beginFill: function(color, alpha){
+		alpha = alpha === undefined ? 1.0 : alpha;
+		
+		this._.renderer.beginFill(color, alpha);
+	},
+	clear: function(){
+		this._.renderer.clear();
+	},
+	drawRect: function(x, y, width, height){
+		this._.renderer.drawRect(x, y, width, height);
+	},
+	drawCircle: function(x, y, radius){
+		this._.renderer.drawCircle(x, y, radius);
+	},
+	drawEllipse: function(x, y, width, height){
+		this._.renderer.drawEllipse(x, y, width, height);
+	},
+	lineTo: function(x, y){
+		this._.renderer.lineTo(x, y);
+	},
+	moveTo: function(x, y){
+		this._.renderer.moveTo();
+	},
+	endFill: function(){
+		this._.renderer.endFill();
 	},
 	beginBitmapFill: function(bitmap, matrix, repeat, smooth){
 		matrix = matrix === undefined ? null : matrix;
 		repeat = repeat === undefined ? true : repeat;
 		smooth = smooth === undefined ? false : smooth;
-	},
-	beginFill: function(color, alpha){
-		alpha = alpha === undefined ? 1.0 : alpha;
 	},
 	beginGradientFill: function(type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio){
 		matrix = matrix === undefined ? null : matrix;
@@ -23,19 +46,10 @@ flash.display.Graphics = FlashJSBase.extend({
 	beginShaderFill: function(shader, matrix){
 		matrix = matrix === undefined ? null : matrix;
 	},
-	clear: function(){
-		
-	},
 	copyFrom: function(sourceGraphics){
 		
 	},
 	curveTo: function(controlX, controlY, anchorX, anchorY){
-		
-	},
-	drawCircle: function(x, y, radius){
-		
-	},
-	drawEllipse: function(x, y, width, height){
 		
 	},
 	drawGraphicsData: function(graphicsData){
@@ -44,9 +58,7 @@ flash.display.Graphics = FlashJSBase.extend({
 	drawPath: function(commands, data, winding){
 		winding = winding === undefined ? "evenOdd" : winding;
 	},
-	drawRect: function(x, y, width, height){
-		
-	},
+	
 	drawRoundRect: function(x, y, width, height, ellipseWidth, ellipseHeight){
 		ellipseHeight = ellipseHeight === undefined ? ellipseWidth : ellipseHeight;
 	},
@@ -57,9 +69,6 @@ flash.display.Graphics = FlashJSBase.extend({
 		indices = indices === undefined ? null : indices;
 		uvtData = uvtData === undefined ? null : uvtData;
 		culling = culling === undefined ? "none" : culling;
-	},
-	endFill: function(){
-		
 	},
 	lineBitmapStyle: function(bitmap, matrix, repeat, smooth){
 		matrix = matrix === undefined ? null : matrix;
@@ -84,16 +93,9 @@ flash.display.Graphics = FlashJSBase.extend({
 		caps = caps === undefined ? null : caps;
 		joints = joints === undefined ? null : joints;
 		miterLimit = miterLimit === undefined ? 3 : miterLimit;
-	},
-	lineTo: function(x, y){
-		
-	},
-	moveTo: function(x, y){
-		
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'display', 'Graphics')
-	},
-	RENDERER: avm.renderer
+		namespace: new RemedyNamespace('flash', 'display', 'Graphics')
+	}
 });

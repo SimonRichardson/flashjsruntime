@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.geom = flash.geom || {};
-flash.geom.Point = FlashJSBase.extend({
+flash.geom.Point = RemedyBase.extend({
 	constructor: function(x, y){
 		this.base();
 		
@@ -44,7 +44,7 @@ flash.geom.Point = FlashJSBase.extend({
     }
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'geom', 'Point')
+		namespace: new RemedyNamespace('flash', 'geom', 'Point')
 	},
 	interpolate: function(point1, point2, f) {
         return new flash.geom.Point(point2.x + f * (point1.x - point2.x), point2.y + f * (point1.y - point2.y));

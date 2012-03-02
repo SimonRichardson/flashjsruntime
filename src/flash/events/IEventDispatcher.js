@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.events = flash.events || {};
-flash.events.IEventDispatcher = FlashJSBase.extend({
+flash.events.IEventDispatcher = RemedyBase.extend({
 	addEventListener: function(type, listener, useCapture, priority, useWeakReference) {
 	},
 	dispatchEvent: function(event){
@@ -13,7 +13,7 @@ flash.events.IEventDispatcher = FlashJSBase.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'events', 'IEventDispatcher'),
+		namespace: new RemedyNamespace('flash', 'events', 'IEventDispatcher'),
 		isInterface: true
 	}
 });

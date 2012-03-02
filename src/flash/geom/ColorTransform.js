@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.geom = flash.geom || {};
-flash.geom.ColorTransform = FlashJSBase.extend({
+flash.geom.ColorTransform = RemedyBase.extend({
 	constructor: function(redMultiplier, greenMultiplier, blueMultiplier, alphaMultiplier, redOffset, greenOffset, blueOffset, alphaOffset){
 		this.base();
 		
@@ -45,6 +45,6 @@ flash.geom.ColorTransform = FlashJSBase.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'geom', 'ColorTransform')
+		namespace: new RemedyNamespace('flash', 'geom', 'ColorTransform')
 	}
 });

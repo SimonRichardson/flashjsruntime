@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.events = flash.events || {};
-flash.events.EventDispatcher = FlashJSBase.extend({
+flash.events.EventDispatcher = RemedyBase.extend({
 	constructor: function(target) {
 		this.base();
 		this._.target = target;
@@ -123,7 +123,7 @@ flash.events.EventDispatcher = FlashJSBase.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'events', 'EventDispatcher')
+		namespace: new RemedyNamespace('flash', 'events', 'EventDispatcher')
 	},
 	init: function(klass) {
 		klass.sort = function(a, b){

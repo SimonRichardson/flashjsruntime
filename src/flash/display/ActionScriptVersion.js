@@ -1,12 +1,12 @@
 var flash = flash || {};
 flash.display = flash.display || {};
-flash.display.ActionScriptVersion = FlashJSBase.extend({
+flash.display.ActionScriptVersion = RemedyBase.extend({
 	constructor: function(){
 		this.base();
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'display', 'ActionScriptVersion')
+		namespace: new RemedyNamespace('flash', 'display', 'ActionScriptVersion')
 	},
 	ACTIONSCRIPT2 :2,
 	ACTIONSCRIPT3 :3

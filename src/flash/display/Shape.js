@@ -16,6 +16,6 @@ flash.display.Shape = flash.display.DisplayObject.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'display', 'Shape')
+		namespace: new RemedyNamespace('flash', 'display', 'Shape')
 	}
 });

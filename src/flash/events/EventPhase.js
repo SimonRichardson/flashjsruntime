@@ -1,12 +1,12 @@
 var flash = flash || {};
 flash.events = flash.events || {};
-flash.events.EventPhase = FlashJSBase.extend({
+flash.events.EventPhase = RemedyBase.extend({
 	constructor: function(){
 		this.base();
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'events', 'EventPhase')
+		namespace: new RemedyNamespace('flash', 'events', 'EventPhase')
 	},
 	CAPTURING_PHASE: 1,
 	AT_TARGET: 2,

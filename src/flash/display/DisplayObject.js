@@ -190,7 +190,7 @@ flash.display.DisplayObject = flash.events.EventDispatcher.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'display', 'DisplayObject')
+		namespace: new RemedyNamespace('flash', 'display', 'DisplayObject')
 	},
 	properties: {
 		lock: true

@@ -69,8 +69,8 @@ Base.extend = function(_instance, _static) { // subclass
 			reflection.namespace = namespace;
 			reflection.namespaces.push(namespace);
 			
-			if(window.avm) {
-				window.avm.addDefinition(namespace.getQualifiedName(), klass);
+			if(window.RemedyAVM) {
+				RemedyAVM.addStaticDefinition(namespace.getQualifiedName(), klass);
 			}
 		}
 	}

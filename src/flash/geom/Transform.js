@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.geom = flash.geom || {};
-flash.geom.Transform = FlashJSBase.extend({
+flash.geom.Transform = RemedyBase.extend({
 	constructor: function(displayObject){
 		this.base();
 		
@@ -46,6 +46,6 @@ flash.geom.Transform = FlashJSBase.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'geom', 'Transform')
+		namespace: new RemedyNamespace('flash', 'geom', 'Transform')
 	}
 });

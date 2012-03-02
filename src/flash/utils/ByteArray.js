@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.utils = flash.utils || {};
-flash.utils.ByteArray = FlashJSBase.extend({
+flash.utils.ByteArray = RemedyBase.extend({
 	constructor: function(){
 		this.base();
 		
@@ -112,6 +112,6 @@ flash.utils.ByteArray = FlashJSBase.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'utils', 'ByteArray')
+		namespace: new RemedyNamespace('flash', 'utils', 'ByteArray')
 	}
 });

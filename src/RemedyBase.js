@@ -1,4 +1,4 @@
-var FlashJSBase = Base.extend({
+var RemedyBase = Base.extend({
 	constructor: function() {
 		this.base();
 		this._ = {};
@@ -15,7 +15,7 @@ var FlashJSBase = Base.extend({
 		if('get' in props) {
 			cname = 'get';
 			method = props['get'];
-			if(FlashJSBase.nativeGetter) {
+			if(RemedyBase.nativeGetter) {
 				this.__defineGetter__(name, utils.bind(this, method));
 			} else {
 				cname += StringUtils.capitalise(name);
@@ -27,7 +27,7 @@ var FlashJSBase = Base.extend({
 		if('set' in props) {
 			cname = 'set';
 			method = props['set'];
-			if(FlashJSBase.nativeSetter) {
+			if(RemedyBase.nativeSetter) {
 				this.__defineSetter__(name, utils.bind(this, method));
 			} else {
 				cname += StringUtils.capitalise(name);
@@ -39,7 +39,7 @@ var FlashJSBase = Base.extend({
 	},
 	get: function(name) {
 		if(name in this.__getHash__) {
-			if(FlashJSBase.nativeGetter) {
+			if(RemedyBase.nativeGetter) {
 				return this[name];				
 			} else {
 				this[this.__getHash__[name]]();
@@ -52,7 +52,7 @@ var FlashJSBase = Base.extend({
 	},
 	set: function(name, value) {
 		if(name in this.__setHash__) {
-			if(FlashJSBase.nativeGetter) {
+			if(RemedyBase.nativeGetter) {
 				this[name] = value;				
 			} else {
 				this[this.__setHash__[name]](value);
@@ -68,7 +68,7 @@ var FlashJSBase = Base.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('Object')
+		namespace: new RemedyNamespace('Object')
 	},
 	init: function(klass) {
 		klass.nativeGetter = ('__defineGetter__' in this);

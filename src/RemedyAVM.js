@@ -1,10 +1,10 @@
-var AVM = FlashJSBase.extend({
+var RemedyAVM = RemedyBase.extend({
 	constructor: function(){
 		this.base();
+		this._.root = null;
 		this._.bootTime = new Date().getTime();
 		this._.instances = 0;
-		this._.definitions = {};
-		this._.renderer = new render.FlashJSCanvas();
+		this._.renderer = RemedyAVM.renderer;
 		
 		var scope = this;
 		
@@ -19,22 +19,34 @@ var AVM = FlashJSBase.extend({
 			}
 		});
 	},
+	boot: function(klass){
+		if(!this._.renderer.get('isRunning')){
+			this._.renderer.start();
+		}
+		this._.root = new (klass)();
+	},
 	incrementInstances: function(){
 		return this._.instances++;
+	}
+}, {
+	init: function(klass) {
+		klass.renderer = new render.RemedyCanvas();
 	},
-	addDefinition: function(qname, klass){
-		if(qname instanceof FlashJSNamespace) {
+	definitions: {},
+	addStaticDefinition: function(qname, klass){
+		if(qname instanceof RemedyNamespace) {
 			qname = qname.getQualifiedName();
 		}
 		trace(qname);
-		this._.definitions[qname] = klass;
+		RemedyAVM.definitions[qname] = klass;
 	},
-	hasDefinition: function(qname){
-		return this._.definitions[qname];
+	hasStaticDefinition: function(qname){
+		return RemedyAVM.definitions[qname];
 	},
-	getDefinition: function(qname){
-		return this._.definitions[qname];
+	getStaticDefinition: function(qname){
+		return RemedyAVM.definitions[qname];
+	},
+	getRenderer: function(){
+		return RemedyAVM.renderer;
 	}
 });
-// Auto boot the avm
-window.avm = new AVM();

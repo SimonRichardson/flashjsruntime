@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.geom = flash.geom || {};
-flash.geom.Rectangle = FlashJSBase.extend({
+flash.geom.Rectangle = RemedyBase.extend({
 	constructor: function(x, y, width, height){
 		this.base();
 		
@@ -174,6 +174,6 @@ flash.geom.Rectangle = FlashJSBase.extend({
     }
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'geom', 'Rectangle')
+		namespace: new RemedyNamespace('flash', 'geom', 'Rectangle')
 	}
 });

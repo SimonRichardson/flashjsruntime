@@ -8,6 +8,6 @@ flash.display.Bitmap = flash.display.DisplayObject.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'display', 'Bitmap')
+		namespace: new RemedyNamespace('flash', 'display', 'Bitmap')
 	}
 });

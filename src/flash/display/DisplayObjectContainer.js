@@ -226,6 +226,6 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 	}
 }, {
 	reflection: {
-		namespace: new FlashJSNamespace('flash', 'display', 'DisplayObjectContainer')
+		namespace: new RemedyNamespace('flash', 'display', 'DisplayObjectContainer')
 	}
 });

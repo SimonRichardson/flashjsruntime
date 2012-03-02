@@ -1,4 +1,4 @@
-var FlashJSNamespace = Base.extend({
+var RemedyNamespace = Base.extend({
 	constructor: function() {
 		this.namespace = Array.prototype.slice.call(arguments);
 		this.className = this.namespace.pop();
