@@ -38,6 +38,7 @@
   <script src="../src/flash/display/LoaderInfo.js"></script>
   <script src="../src/flash/display/Shape.js"></script>
   <script src="../src/flash/display/Sprite.js"></script>
+  <script src="../src/flash/display/Stage.js"></script>
   <script src="../src/flash/display/SWFVersion.js"></script>
   
   <script src="../src/flash/utils/ByteArray.js"></script>
@@ -57,6 +58,23 @@
   			
   			g.beginFill(0xff00ff, 1);
   	  	  	g.drawCircle(100, 100, 100);
+  	  	  	
+  	  	  	this.addEventListener(flash.events.Event.ADDED, function(event){
+  	  	  		trace('added');
+  	  	  	});
+  	  		this.addEventListener(flash.events.Event.ADDED_TO_STAGE, function(event){
+	  	  		trace('added to stage');
+	  	  	});
+
+  	  		var s = new flash.display.Sprite();
+	  	  	s.addEventListener(flash.events.Event.ADDED, function(event){
+		  	  		trace('added child');
+		  	});
+		  	s.addEventListener(flash.events.Event.ADDED_TO_STAGE, function(event){
+	  	  		trace('added child to stage');
+	  	  	});
+  	  		
+  	  		this.addChild(s);
   		}
   	});
   	

@@ -11,6 +11,20 @@ flash.display.DisplayObject = flash.events.EventDispatcher.extend({
 		
 		var scope = this;
 		
+		this._.setStage = function(stage, child) {
+			var event;
+			if(stage === undefined || stage === null) {
+				event = new flash.events.Event(flash.events.Event.REMOVED_FROM_STAGE, true);
+			} else if(stage !== scope.get('stage')) {
+				event = new flash.events.Event(flash.events.Event.ADDED_TO_STAGE, true);
+			}
+			
+			scope._.stage = stage;
+			
+			event._.setTargets(child, child);
+			child.dispatchEvent(event);
+		};
+		
 		// define
 		this._.accessibilityProperties = null;
 		this._.alpha = 1.0;
@@ -23,7 +37,7 @@ flash.display.DisplayObject = flash.events.EventDispatcher.extend({
 		this._.mask = null;
 		this._.mouseX = 0;
 		this._.mouseY = 0;
-		this._.name = "instance" + avm.incrementInstances();
+		this._.name = "instance" + RemedyAVM.incrementInstances();
 		this._.opaqueBackground = null;
 		this._.parent = null;
 		this._.root = null;

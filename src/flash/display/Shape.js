@@ -8,7 +8,7 @@ flash.display.Shape = flash.display.DisplayObject.extend({
 		
 		var scope = this;
 		
-		this._.graphics = new flash.display.Graphics();
+		this._.graphics = new flash.display.Graphics(this);
 		
 		this.define('graphics', {
 			get: function(){ return scope._.graphics; }

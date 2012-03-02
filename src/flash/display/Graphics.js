@@ -1,9 +1,10 @@
 var flash = flash || {};
 flash.display = flash.display || {};
 flash.display.Graphics = RemedyBase.extend({
-	constructor: function(){
+	constructor: function(context){
 		this.base();
 		
+		this._.context = context;
 		this._.renderer = RemedyAVM.getRenderer();
 	},
 	beginFill: function(color, alpha){

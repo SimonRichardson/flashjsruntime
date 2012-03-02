@@ -1,9 +1,11 @@
 var RemedyAVM = RemedyBase.extend({
 	constructor: function(){
 		this.base();
-		this._.root = null;
+		
+		this._.root = null;		
+		this._.stage = flash.display.Stage.create();
+		
 		this._.bootTime = new Date().getTime();
-		this._.instances = 0;
 		this._.renderer = RemedyAVM.renderer;
 		
 		var scope = this;
@@ -23,21 +25,28 @@ var RemedyAVM = RemedyBase.extend({
 		if(!this._.renderer.get('isRunning')){
 			this._.renderer.start();
 		}
-		this._.root = new (klass)();
-	},
-	incrementInstances: function(){
-		return this._.instances++;
+		
+		var root = new (klass)();
+		this._.root = root;
+		root = new (klass)();
+		
+		var event = new flash.events.Event(flash.events.Event.ADDED, true);
+		event._.setTargets(root, root);
+		root.dispatchEvent(event);
+		
+		// add the stage (this will cause a cascade)
+		root._.setStage(this._.stage, root);
 	}
 }, {
 	init: function(klass) {
 		klass.renderer = new render.RemedyCanvas();
 	},
 	definitions: {},
+	instances: 0,
 	addStaticDefinition: function(qname, klass){
 		if(qname instanceof RemedyNamespace) {
 			qname = qname.getQualifiedName();
 		}
-		trace(qname);
 		RemedyAVM.definitions[qname] = klass;
 	},
 	hasStaticDefinition: function(qname){
@@ -45,6 +54,9 @@ var RemedyAVM = RemedyBase.extend({
 	},
 	getStaticDefinition: function(qname){
 		return RemedyAVM.definitions[qname];
+	},
+	incrementInstances: function(){
+		return RemedyAVM.instances++;
 	},
 	getRenderer: function(){
 		return RemedyAVM.renderer;

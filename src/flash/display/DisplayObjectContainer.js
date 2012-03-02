@@ -6,6 +6,20 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 		
 		var scope = this;
 		
+		this._.parentSetStage = this._.setStage;
+		this._.setStage = function(stage, child) {
+			trace(scope.get('stage'));
+			if(stage !== scope.get('stage')) {
+				scope._.parentSetStage(stage, child);
+				
+				var total = scope.get('numChildren');
+				for(var i = 0; i<total; i++){
+					var child = scope.getChildAt(i);
+					child._.setStage(stage, child);
+				}
+			}
+		};
+		
 		this._.children = [];
 		
 		this.define('mouseChildren', {
@@ -39,7 +53,7 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 		return this.addChildAt(child, this.get('numChildren'));
 	},
 	addChildAt: function(child, index) {
-		if(null === child) 
+		if(null === child || child === undefined) 
 			throw new TypeError('Parameter type must be non-null.', 2007);
 		if(index < 0 || index > this.get('numChildren')) 
 			throw new RangeError('The supplied index is out of bounds.', 2006);
@@ -63,15 +77,13 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 		child.dispatchEvent(event);
 		
 		if(this.get('stage')) {
-			event = new flash.events.Event(flash.events.Event.ADDED_TO_STAGE, true);
-			event._.setTargets(child, child);
-			child.dispatchEvent(event);
+			child._.setStage(this.get('stage'));
 		}
 		
 		return child;
 	},
 	contains: function(child) {
-		if(null === child) 
+		if(null === child || child === undefined) 
 			throw new TypeError('Parameter type must be non-null.', 2007);
 		if(child.get('parent') !== this) 
 			throw new ArgumentError('The supplied DisplayObject must be a child of the caller.', 2025);
@@ -90,7 +102,7 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 									this.reflection.namespace.getFullPath() + '/getChildAt().' +
 									'Expected 1, got ' + arguments.length + '.', 1063);
 		}
-		if(null === child) 
+		if(null === index || index === undefined) 
 			throw new TypeError('Parameter type must be non-null.', 2007);
 		if(index < 0 || index > this.get('numChildren')) 
 			throw new RangeError('The supplied index is out of bounds.', 2006);
@@ -103,7 +115,7 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 									this.reflection.namespace.getFullPath() + '/getChildByName().' +
 									'Expected 1, got ' + arguments.length + '.', 1063);
 		}
-		if(null === child) 
+		if(null === child || child === undefined) 
 			throw new TypeError('Parameter type must be non-null.', 2007);
 		
 		var total = this.get('numChildren');
@@ -121,7 +133,7 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 									this.reflection.namespace.getFullPath() + '/getChildIndex().' +
 									'Expected 1, got ' + arguments.length + '.', 1063);
 		}
-		if(null === child) 
+		if(null === child || child === undefined) 
 			throw new TypeError('Parameter type must be non-null.', 2007);
 		if(child.get('parent') !== this) 
 			throw new ArgumentError('The supplied DisplayObject must be a child of the caller.', 2025);
@@ -140,7 +152,7 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 									this.reflection.namespace.getFullPath() + '/removeChild().' +
 									'Expected 1, got ' + arguments.length + '.', 1063);
 		}
-		if(null === child) 
+		if(null === child || child === undefined) 
 			throw new TypeError('Parameter type must be non-null.', 2007);
 		if(child.get('parent') !== this) 
 			throw new ArgumentError('The supplied DisplayObject must be a child of the caller.', 2025);
@@ -153,7 +165,7 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 									this.reflection.namespace.getFullPath() + '/removeChildAt().' +
 									'Expected 1, got ' + arguments.length + '.', 1063);
 		}
-		if(null === child) 
+		if(null === child || child === undefined) 
 			throw new TypeError('Parameter type must be non-null.', 2007);
 		if(index < 0 || index > this.get('numChildren')) 
 			throw new RangeError('The supplied index is out of bounds.', 2006);
@@ -179,7 +191,7 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 									this.reflection.namespace.getFullPath() + '/setChildIndex().' +
 									'Expected 2, got ' + arguments.length + '.', 1063);
 		}
-		if(null === child) 
+		if(null === child || child === undefined) 
 			throw new TypeError('Parameter type must be non-null.', 2007);
 		if(index < 0 || index > this.get('numChildren')) 
 			throw new RangeError('The supplied index is out of bounds.', 2006);

@@ -10,7 +10,7 @@ flash.display.Sprite = flash.display.DisplayObjectContainer.extend({
 		
 		this._.buttonMode = false;
 		this._.dropTarget = null;
-		this._.graphics = new flash.display.Graphics();
+		this._.graphics = new flash.display.Graphics(this);
 		this._.hitArea = null;
 		this._.soundTransform = null;
 		this._.useHandCursor = false;

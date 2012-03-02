@@ -5,9 +5,6 @@ var RemedyBase = Base.extend({
 		this.__getHash__ = {};
 		this.__setHash__ = {};
 	},
-	trace: function() {
-		trace.apply(null, arguments);
-	},
 	define: function(name, props) {
 		var method,
 			cname;
