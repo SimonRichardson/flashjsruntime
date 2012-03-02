@@ -12,7 +12,7 @@ flash.geom.Matrix = FlashJSBase.extend({
 		this.ty = ty === undefined ? 0 : ty;
 	},
 	clone: function() {
-        return new Matrix(this.a, this.b, this.c, this.d, this.tx, this.ty);
+        return new flash.geom.Matrix(this.a, this.b, this.c, this.d, this.tx, this.ty);
     },
     concat: function(matrix) {
         var aa = this.a * matrix.a;
@@ -94,26 +94,26 @@ flash.geom.Matrix = FlashJSBase.extend({
     	tx = tx === undefined ? 0 : tx;
     	ty = ty === undefined ? 0 : ty;
     	
-    	var gradDimension = flash.utils.Matrix.GRADIENT_DIMENSION;
+    	var gradDimension = flash.geom.Matrix.GRADIENT_DIMENSION;
         this.createBox(width / gradDimension, height / gradDimension, rotation, tx + width / 2, ty + height / 2);
     },
     rotate: function(angle) {
         var a = Math.cos(angle);
         var b = Math.sin(angle);
-        this.concat(new Matrix(a, b, -b, a, 0, 0));
+        this.concat(new flash.geom.Matrix(a, b, -b, a, 0, 0));
     },
     translate: function(x, y) {
         this.tx += x;
         this.ty += y;
     },
     scale: function(sx, sy) {
-        this.concat(new Matrix(sx, 0, 0, sy, 0, 0));
+        this.concat(new flash.geom.Matrix(sx, 0, 0, sy, 0, 0));
     },
     deltaTransformPoint: function(point) {
-        return new Point(this.a * point.x + this.c * point.y, this.d * point.y + this.b * point.x);
+        return new flash.geom.Point(this.a * point.x + this.c * point.y, this.d * point.y + this.b * point.x);
     },
     transformPoint: function(point) {
-        return new Point(this.a * point.x + this.c * point.y + this.tx, this.d * point.y + this.b * point.x + this.ty);
+        return new flash.geom.Point(this.a * point.x + this.c * point.y + this.tx, this.d * point.y + this.b * point.x + this.ty);
     },
     toString: function() {
         return "(a=" + this.a + ", b=" + this.b + ", c=" + this.c + ", d=" + this.d + ", tx=" + this.tx + ", ty=" + this.ty + ")";

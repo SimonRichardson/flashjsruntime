@@ -18,4 +18,4 @@ utils.Reflect = {
 	createInstance: function(qname) {
 		return new (avm.getDefintion(qname))();
 	}
-}
+};

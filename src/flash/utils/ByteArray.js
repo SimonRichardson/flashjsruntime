@@ -7,10 +7,10 @@ flash.utils.ByteArray = FlashJSBase.extend({
 		this._.data = [];
 		
 		this.position = 0;
+		this.endian = flash.utils.Endian.BIG_ENDIAN;
 		
 		//this.define('bytesAvailable');
  	 	//this.define('defaultObjectEncoding');
- 	 	//this.define('endian');
  	 	this.define('length', {
  	 		get: function(){
  	 			return this._.data.length;
@@ -20,12 +20,18 @@ flash.utils.ByteArray = FlashJSBase.extend({
  	 		}
  	 	});
  	 	//this.define('objectEncoding');
+ 	 	
+ 	 	this._.writeFloat = function(data, precisionBits, exponentBits){
+ 	 		
+ 	 	};
 	},
 	clear: function(){
 		this.position = 0;
 		this._.data.length = 0;
 	},
 	compress: function(algorithm){
+	},
+	uncompress: function(algorithm){
 	},
 	deflate: function(){
 	},
@@ -63,16 +69,16 @@ flash.utils.ByteArray = FlashJSBase.extend({
 	},
 	readUTFBytes: function(length){
 	},
-	toString: function(){
-	},
-	uncompress: function(algorithm){
-	},
 	writeBoolean: function(value){
 		this._.data.push(value ? 1 : 0);
 		this.position++;
 	},
 	writeByte: function(value){
-		this._.data.push((value & 0xff) - 256);
+		value &= 0xff;
+		if(value > 127) {
+			value -= 256;
+		}
+		this._.data.push(value);
 		this.position++;
 	},
 	writeBytes: function(bytes, offset, length){
@@ -80,8 +86,12 @@ flash.utils.ByteArray = FlashJSBase.extend({
 		length = length == undefined? 0 : length;
 	},
 	writeDouble: function(value){
+		this._.data.push(this._.data, this._.writeFloat(value, 52, 11));
+		this.position += 8;
 	},
 	writeFloat: function(value){
+		this._.data.push(this._.writeFloat(value, 23, 8));
+		this.position += 8;
 	},
 	writeInt: function(value){
 	},
@@ -96,6 +106,9 @@ flash.utils.ByteArray = FlashJSBase.extend({
 	writeUTF: function(value){
 	},
 	writeUTFBytes: function(value){
+	},
+	toString: function(){
+		return this._.data.join('');
 	}
 }, {
 	reflection: {

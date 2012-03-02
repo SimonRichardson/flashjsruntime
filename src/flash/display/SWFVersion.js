@@ -1,6 +1,13 @@
 var flash = flash || {};
 flash.display = flash.display || {};
-flash.display.SWFVersion = {
+flash.display.SWFVersion = FlashJSBase.extend({
+	constructor: function(){
+		this.base();
+	}
+}, {
+	reflection: {
+		namespace: new FlashJSNamespace('flash', 'display', 'SWFVersion')
+	},
 	FLASH1 :1,
 	FLASH2 :2,
 	FLASH3 :3,
@@ -14,4 +21,4 @@ flash.display.SWFVersion = {
 	FLASH11 :11,
 	FLASH12 :12,
 	FLASH13 :13
-};
+});

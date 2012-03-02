@@ -12,4 +12,4 @@ utils.bind = function(obj, method){
     f.__bind__ = true;
 
     return f;
-}
+};

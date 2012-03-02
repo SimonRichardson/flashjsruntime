@@ -4,6 +4,8 @@ flash.geom.Rectangle = FlashJSBase.extend({
 	constructor: function(x, y, width, height){
 		this.base();
 		
+		var scope = this;
+		
 		this.x = x == undefined ? 0 : x;
 		this.y = y == undefined ? 0 : y;
 		this.width = width == undefined ? 0 : width;
@@ -11,70 +13,70 @@ flash.geom.Rectangle = FlashJSBase.extend({
 		
 		this.define('left', {
 			get: function(){
-				return this.x;
+				return scope.x;
 			},
 			set: function(value){
-				this.width = this.width + (this.x - value);
-			    this.x = value;
+				scope.width = scope.width + (scope.x - value);
+				scope.x = value;
 			}
 		});
 		this.define('right', {
 			get: function(){
-				return this.x + this.width;
+				return scope.x + scope.width;
 			},
 			set: function(value){
-				this.width = value - this.x;
+				scope.width = value - scope.x;
 			}
 		});
 		this.define('top', {
 			get: function(){
-				return this.y;
+				return scope.y;
 			},
 			set: function(value){
-				this.height = this.height + (this.y - value);
-			    this.y = value;
+				scope.height = scope.height + (scope.y - value);
+				scope.y = value;
 			}
 		});
 		this.define('bottom', {
 			get: function(){
-				return this.y + this.height;
+				return scope.y + scope.height;
 			},
 			set: function(value){
-				this.height = value - this.y;
+				scope.height = value - scope.y;
 			}
 		});
 		this.define('topLeft', {
 			get: function(){
-				return new Point(this.x, this.y);
+				return new flash.geom.Point(scope.x, scope.y);
 			},
 			set: function(value){
-				this.width = this.width + (this.x - value.x);
-			    this.height = this.height + (this.y - value.y);
-			    this.x = value.x;
-			    this.y = value.y;
+				scope.width = scope.width + (scope.x - value.x);
+				scope.height = scope.height + (scope.y - value.y);
+				scope.x = value.x;
+				scope.y = value.y;
 			}
 		});
 		this.define('bottomRight', {
 			get: function(){
-				return new Point(this.right, this.bottom);
+				return new flash.geom.Point(scope.right, scope.bottom);
 			},
 			set: function(value){
-				this.width = value.x - this.x;
-			    this.height = value.y - this.y;
+				scope.width = value.x - scope.x;
+				scope.height = value.y - scope.y;
 			}
 		});
 		this.define('size', {
 			get: function(){
-				return new Point(this.width, this.height);
+				return new flash.geom.Point(scope.width, scope.height);
 			},
 			set: function(value){
-				this.width = value.x;
-			    this.height = value.y;
+				scope.width = value.x;
+				scope.height = value.y;
 			}
 		});
 	},
 	clone: function(){
-        return new Rectangle(this.x, this.y, this.width, this.height);
+        return new flash.geom.Rectangle(this.x, this.y, this.width, this.height);
 	},
 	isEmpty: function(){
         return (this.width <= 0 && this.height <= 0);
@@ -120,7 +122,7 @@ flash.geom.Rectangle = FlashJSBase.extend({
         		(rw0 > this.x && rw0 <= rw1 && rh0 > this.y && rh0 <= rh1);
     },
     intersection: function(rect){
-        var result = new Rectangle();
+        var result = new flash.geom.Rectangle();
         if (!this.isEmpty()){
             this.isEmpty();
         }
@@ -157,7 +159,7 @@ flash.geom.Rectangle = FlashJSBase.extend({
         if (rect.isEmpty()){
             return this.clone();
         }
-        var result = new Rectangle();
+        var result = new flash.geom.Rectangle();
         result.x = Math.min(this.x, rect.x);
         result.y = Math.min(this.y, rect.y);
         result.width = Math.max(this.x + this.width, rect.x + rect.width) - result.x;

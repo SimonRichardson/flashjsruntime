@@ -25,20 +25,43 @@
   <script src="../src/flash/geom/Matrix.js"></script>
   <script src="../src/flash/geom/Point.js"></script>
   <script src="../src/flash/geom/Rectangle.js"></script>
+  <script src="../src/flash/geom/Transform.js"></script>
   
+  <script src="../src/flash/display/ActionScriptVersion.js"></script>
   <script src="../src/flash/display/DisplayObject.js"></script>
+  <script src="../src/flash/display/DisplayObjectContainer.js"></script>
+  <script src="../src/flash/display/Bitmap.js"></script>
+  <script src="../src/flash/display/BlendMode.js"></script>
+  <script src="../src/flash/display/Graphics.js"></script>
+  <script src="../src/flash/display/LoaderInfo.js"></script>
+  <script src="../src/flash/display/Shape.js"></script>
+  <script src="../src/flash/display/Sprite.js"></script>
+  <script src="../src/flash/display/SWFVersion.js"></script>
   
   <script src="../src/flash/utils/ByteArray.js"></script>
+  <script src="../src/flash/utils/Endian.js"></script>
   <script src="../src/flash/utils/getDefinitionByName.js"></script>
   <script src="../src/flash/utils/getQualifiedClassName.js"></script>
   <script src="../src/flash/utils/getTimer.js"></script>
   <script src="../src/flash/utils/Timer.js"></script> 
   
   <script>
-  	var array = new flash.utils.ByteArray();
-  	array.writeByte(1000);
-  	array.position = 0;
-  	trace(">>", array.readByte());
+  	var root = new flash.display.Sprite();
+  	root.name = "root";
+  	root.addEventListener('added', function(event){
+  		trace('root', event.target.name, event.currentTarget.name);
+  		//root.removeChild(event.target);
+  	});
+  	
+  	var child = new flash.display.Sprite();
+  	child.name = "child";
+  	child.addEventListener('added', function(event){
+  		trace('child', event.target.name, event.currentTarget.name);
+  	});
+  	
+  	root.addChild(child);
+  	
+  	trace(root._.children);
   </script>
 </head>
 <body>

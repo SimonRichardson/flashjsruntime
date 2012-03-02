@@ -4,6 +4,8 @@ flash.geom.ColorTransform = FlashJSBase.extend({
 	constructor: function(redMultiplier, greenMultiplier, blueMultiplier, alphaMultiplier, redOffset, greenOffset, blueOffset, alphaOffset){
 		this.base();
 		
+		var scope = this;
+		
 		this.redMultiplier = redMultiplier == undefined? 1 : redMultiplier;
 	    this.greenMultiplier = greenMultiplier == undefined? 1 : greenMultiplier;
 	    this.blueMultiplier = blueMultiplier == undefined? 1 : blueMultiplier;
@@ -15,15 +17,15 @@ flash.geom.ColorTransform = FlashJSBase.extend({
 	    
 	    this.define('color', {
 	    	get: function(){
-	    		return this.redOffset << 16 | this.greenOffset << 8 | this.blueOffset;
+	    		return scope.redOffset << 16 | scope.greenOffset << 8 | scope.blueOffset;
 	    	},
 	    	set: function(value){
-	        	this.blueMultiplier = 0;
-		        this.greenMultiplier = 0;
-		        this.redMultiplier = 0;
-		        this.redOffset = value >> 16 & 255;
-		        this.greenOffset = value >> 8 & 255;
-		        this.blueOffset = value & 255;
+	    		scope.blueMultiplier = 0;
+	    		scope.greenMultiplier = 0;
+	    		scope.redMultiplier = 0;
+	    		scope.redOffset = value >> 16 & 255;
+	    		scope.greenOffset = value >> 8 & 255;
+	    		scope.blueOffset = value & 255;
 	    	}
 	    });
 	},

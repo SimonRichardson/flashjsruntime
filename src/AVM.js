@@ -2,6 +2,7 @@ var AVM = FlashJSBase.extend({
 	constructor: function(){
 		this.base();
 		this._.bootTime = new Date().getTime();
+		this._.instances = 0;
 		this._.definitions = {};
 		
 		this.define('bootTime', {
@@ -9,6 +10,9 @@ var AVM = FlashJSBase.extend({
 				return this._.bootTime;
 			}
 		});
+	},
+	incrementInstances: function(){
+		return this._.instances++;
 	},
 	addDefinition: function(qname, klass){
 		if(qname instanceof FlashJSNamespace) {

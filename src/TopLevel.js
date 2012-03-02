@@ -19,7 +19,7 @@ Error.prototype.toString = function(){
 	if(!isNaN(this.id)) str += ((str.length > 0) ? ": " : "") + "Error #" + this.id;
 	if(this.message) str += ((str.length > 0) ? ": " : "") + this.message;
 	return str;
-}
+};
 
 function ArgumentError(message, id) {
 	this.message = message;

@@ -9,6 +9,8 @@ flash.events.Event = FlashJSBase.extend({
 		bubbles = !bubbles ? false : true;
 		cancelable = !cancelable ? false : true;
 		
+		var scope = this;
+		
 		this._.target = null;
 		this._.currentTarget = null;
 		this._.preventDefault = false;
@@ -17,20 +19,19 @@ flash.events.Event = FlashJSBase.extend({
 		
 		this._.eventPhase = flash.events.EventPhase.AT_TARGET;
 		
+		this._.setTargets = function(currentTarget, target){
+			scope._.currentTarget = currentTarget;
+			if(target) { scope._.target = target; }
+		};
+		
 		this.define("target", {
-			get: function() {
-				return this._.target;
-			}
+			get: function() { return scope._.target; }
 		});
 		this.define("currentTarget", {
-			get: function() {
-				return this._.currentTarget;
-			}
+			get: function() { return scope._.currentTarget; }
 		});
 		this.define("eventPhase", {
-			get: function() {
-				return this._.eventPhase;
-			}
+			get: function() { return scope._.eventPhase; }
 		});
 		
 		this.define("type", {
