@@ -6,11 +6,22 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 		
 		var scope = this;
 		
-		this._.parentSetStage = this._.setStage;
+		var setRoot = this._.setRoot;
+		this._.setRoot = function(root) {
+			if(root !== scope.get('root')) {
+				setRoot(root);
+				
+				var total = scope.get('numChildren');
+				for(var i = 0; i<total; i++){
+					var child = scope.getChildAt(i);
+					child._.setRoot(root);
+				}
+			}
+		};
+		var setStage = this._.setStage;
 		this._.setStage = function(stage, child) {
-			trace(scope.get('stage'));
 			if(stage !== scope.get('stage')) {
-				scope._.parentSetStage(stage, child);
+				setStage(stage, child);
 				
 				var total = scope.get('numChildren');
 				for(var i = 0; i<total; i++){
@@ -44,7 +55,7 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 		
 		this.base(event);
 		
-		if(event.get('bubbles') && this.get('parent')) {
+		if(event.get('bubbles') && (this.get('parent') && this.get('parent') != this.get('root'))) {
 			// We're going to assume that it's a IEventDispatcher?
 			this.get('parent').dispatchEvent(event);
 		}
@@ -66,16 +77,21 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 		
 		if(index === this.get('numChildren')) {
 			this._.children.push(child);
+		} else if(index === 0){
+			this._.children.unshift(child);
 		} else {
 			this._.children.splice(child, index);
 		}
 		
 		child._.parent = this;
-		 
+		
 		var event = new flash.events.Event(flash.events.Event.ADDED, true);
 		event._.setTargets(child, child);
 		child.dispatchEvent(event);
 		
+		if(this.get('root')) {
+			child._.setRoot(this.get('root'));
+		}
 		if(this.get('stage')) {
 			child._.setStage(this.get('stage'));
 		}

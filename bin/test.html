@@ -50,7 +50,27 @@
 </head>
 <body>
   <script>
-  	
+  socket= new WebSocket('ws://localhost:4444/');
+  
+  var message = "hello";
+  var level = "DEBUG";
+  
+  var result = '<showMessage key="' + level + '">'; 
+  result += '<![CDATA[' + message + ']]>';
+  result += '</showMessage>';
+  result += '\n';
+  
+  trace(socket.readyState);
+  socket.onerror = function() {
+	trace("error >> ");  
+  };
+  socket.onopen= function() {
+	  trace("here >> ");
+      socket.send('!SOS' + result);
+  };
+  socket.onmessage= function(s) {
+      alert('got reply '+s);
+  };
   </script>
 </body>
 </head>

@@ -4,6 +4,7 @@ var RemedyAVM = RemedyBase.extend({
 		
 		this._.root = null;		
 		this._.stage = flash.display.Stage.create();
+		this._.stage.name = null;
 		
 		this._.bootTime = new Date().getTime();
 		this._.renderer = RemedyAVM.renderer;
@@ -27,6 +28,7 @@ var RemedyAVM = RemedyBase.extend({
 		}
 		
 		var root = new (klass)();
+		root.name = "root1"; // TODO : fix this magic string
 		this._.root = root;
 		
 		var event = new flash.events.Event(flash.events.Event.ADDED, true);
@@ -34,6 +36,7 @@ var RemedyAVM = RemedyBase.extend({
 		root.dispatchEvent(event);
 		
 		// add the stage (this will cause a cascade)
+		root._.setRoot(root);
 		root._.setStage(this._.stage, root);
 	}
 }, {

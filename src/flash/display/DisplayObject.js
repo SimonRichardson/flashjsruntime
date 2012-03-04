@@ -11,6 +11,9 @@ flash.display.DisplayObject = flash.events.EventDispatcher.extend({
 		
 		var scope = this;
 		
+		this._.setRoot = function(root) {
+			scope._.root = root;
+		};
 		this._.setStage = function(stage, child) {
 			var event;
 			if(stage === undefined || stage === null) {
