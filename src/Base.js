@@ -22,7 +22,6 @@ Base.extend = function(_instance, _static) { // subclass
 	delete Base._prototyping;
 	
 	// create the wrapper for the constructor function
-	//var constructor = proto.constructor.valueOf(); //-dean
 	var constructor = proto.constructor;
 	var klass = proto.constructor = function() {
 		if (!Base._prototyping) {

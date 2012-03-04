@@ -7,31 +7,75 @@ var RemedyBase = Base.extend({
 	},
 	define: function(name, props) {
 		var method,
+			previous,
 			cname;
 		
 		if('get' in props) {
-			cname = 'get';
-			method = props['get'];
-			if(RemedyBase.nativeGetter) {
-				this.__defineGetter__(name, utils.bind(this, method));
-			} else {
-				cname += StringUtils.capitalise(name);
-				this[cname] = utils.bind(this, method);
+			value = props['get'];
+			if(name in this.__getHash__) {
+				ancestor = this.__getHash__[name].method;
+				if(ancestor && (typeof value == "function") &&
+				   (!ancestor.valueOf || ancestor.valueOf() != value.valueOf()) &&
+				   /\bbase\b/.test(value)) {
+					method = value.valueOf();
+					
+					value = function() {
+						previous = this.base || Base.prototype.base;
+						this.base = ancestor;
+						var returnValue = method.apply(this, arguments);
+						this.base = previous;
+						return returnValue;
+					};
+					
+					value.valueOf = function(type) {
+						return (type == "object") ? value : method;
+					};
+					value.toString = Base.toString;
+				}	
 			}
-			this.__getHash__[name] = cname;
+			
+			if(RemedyBase.nativeGetter) {
+				cname = name;
+				this.__defineGetter__(name, value);
+			} else {
+				cname = 'get' + StringUtils.capitalise(name);
+				this[cname] = value;
+			}
+			this.__getHash__[name] = {name:cname, method:value};
 		}
 		
 		if('set' in props) {
-			cname = 'set';
-			method = props['set'];
-			if(RemedyBase.nativeSetter) {
-				this.__defineSetter__(name, utils.bind(this, method));
-			} else {
-				cname += StringUtils.capitalise(name);
-				this.__setHash__[name] = cname;
-				this[cname] = utils.bind(this, method);
+			value = props['set'];
+			if(name in this.__setHash__) {
+				ancestor = this.__setHash__[name].method;
+				if(ancestor && (typeof value == "function") &&
+				   (!ancestor.valueOf || ancestor.valueOf() != value.valueOf()) &&
+				   /\bbase\b/.test(value)) {
+					method = value.valueOf();
+					
+					value = function() {
+						previous = this.base || Base.prototype.base;
+						this.base = ancestor;
+						var returnValue = method.apply(this, arguments);
+						this.base = previous;
+						return returnValue;
+					};
+					
+					value.valueOf = function(type) {
+						return (type == "object") ? value : method;
+					};
+					value.toString = Base.toString;
+				}	
 			}
-			this.__setHash__[name] = cname;
+			
+			if(RemedyBase.nativeGetter) {
+				cname = name;
+				this.__defineSetter__(name, value);
+			} else {
+				cname = 'set' + StringUtils.capitalise(name);
+				this[cname] = value;
+			}
+			this.__setHash__[name] = {name:cname, method:value};
 		}
 	},
 	get: function(name) {
@@ -39,7 +83,7 @@ var RemedyBase = Base.extend({
 			if(RemedyBase.nativeGetter) {
 				return this[name];				
 			} else {
-				this[this.__getHash__[name]]();
+				this[this.__getHash__[name].name]();
 			}
 		} else {
 			throw new ReferenceError("Property " + name + " not found on " + 
@@ -52,7 +96,7 @@ var RemedyBase = Base.extend({
 			if(RemedyBase.nativeGetter) {
 				this[name] = value;				
 			} else {
-				this[this.__setHash__[name]](value);
+				this[this.__setHash__[name].name](value);
 			}
 		} else {
 			throw new ReferenceError("Property " + name + " not found on " + 

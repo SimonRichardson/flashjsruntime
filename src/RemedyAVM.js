@@ -28,7 +28,6 @@ var RemedyAVM = RemedyBase.extend({
 		
 		var root = new (klass)();
 		this._.root = root;
-		root = new (klass)();
 		
 		var event = new flash.events.Event(flash.events.Event.ADDED, true);
 		event._.setTargets(root, root);
