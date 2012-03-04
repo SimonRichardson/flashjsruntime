@@ -17,8 +17,10 @@ var RemedyAVM = RemedyBase.extend({
 			}
 		});
 		this.define('renderer', {
-			get: function(){
-				return scope._.renderer;
+			get: function(){ return scope._.renderer; },
+			set: function(value){ 
+				scope._.renderer = value;
+				scope._.stage.invalidate();
 			}
 		});
 	},

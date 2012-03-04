@@ -5,6 +5,9 @@ flash.display.Stage = flash.display.DisplayObjectContainer.extend({
 		this.base();
 		
 		var scope = this;
+	},
+	invalidate: function(){
+		
 	}
 }, {
 	reflection: {
