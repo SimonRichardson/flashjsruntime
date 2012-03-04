@@ -15,17 +15,22 @@ flash.display.DisplayObject = flash.events.EventDispatcher.extend({
 			scope._.root = root;
 		};
 		this._.setStage = function(stage, child) {
-			var event;
+			var event,
+				dispatching = false;
 			if(stage === undefined || stage === null) {
+				dispatching = true;
 				event = new flash.events.Event(flash.events.Event.REMOVED_FROM_STAGE, true);
 			} else if(stage !== scope.get('stage')) {
+				dispatching = true;
 				event = new flash.events.Event(flash.events.Event.ADDED_TO_STAGE, true);
 			}
 			
-			scope._.stage = stage;
-			
-			event._.setTargets(child, child);
-			child.dispatchEvent(event);
+			if(dispatching){
+				scope._.stage = stage;
+				
+				event._.setTargets(child, child);
+				child.dispatchEvent(event);
+			}
 		};
 		
 		// define

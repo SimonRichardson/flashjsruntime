@@ -28,7 +28,8 @@ var RemedyAVM = RemedyBase.extend({
 		}
 		
 		var root = new (klass)();
-		root.name = "root1"; // TODO : fix this magic string
+		root.set('name', 'root1'); // TODO : fix this magic string
+		
 		this._.root = root;
 		
 		var event = new flash.events.Event(flash.events.Event.ADDED, true);
