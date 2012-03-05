@@ -261,6 +261,14 @@ flash.display.DisplayObjectContainer = flash.display.InteractiveObject.extend({
 	}
 }, {
 	reflection: {
-		namespace: new RemedyNamespace('flash', 'display', 'DisplayObjectContainer')
+		namespace: new RemedyNamespace('flash', 'display', 'DisplayObjectContainer'),
+		metadata: {
+			accessors: {
+				mouseChildren: {type: "Boolean", declaredBy:"flash.display.DisplayObjectContainer"},
+				tabChildren: {type: "Boolean", declaredBy:"flash.display.DisplayObjectContainer"},
+				numChildren: {type: "int", declaredBy:"flash.display.DisplayObjectContainer"},
+				textSnapshot: {type: "flash.text.TextSnapshot", declaredBy:"flash.display.DisplayObjectContainer"}
+			}
+		}
 	}
 });

@@ -52,25 +52,19 @@ flash.utils.describeType = function(value) {
 			for(var i in readAccessor) {
 				var name = i;
 				var access = i in writeAccessor ? "readwrite" : "read";
-				
-				for(var j in metadata) {
-					trace(">>", j);
-				}
-				
-				
-				var meta = metadata[name];
+				var meta = metadata.accessors[name];
 				var type = meta ? meta.type : "Object";
 				var declaredBy = meta ? meta.declaredBy : "Object";
 				xml += indent + "<accessor name=\"" + name + "\" access=\"" + access + "\" type=\"" + type + "\" declaredBy=\"" + declaredBy + "\"/>\n";
 			}
 			
 			for(var i in writeAccessor) {
-				
 				if(!(i in readAccessor)) {
 					var name = i;
 					var access = "write";
-					var type = "Object";
-					var declaredBy = "Object";
+					var meta = metadata.accessors[name];
+					var type = meta ? meta.type : "Object";
+					var declaredBy = meta ? meta.declaredBy : "Object";
 					
 					xml += indent + "<accessor name=\"" + name + "\" access=\"" + access + "\" type=\"" + type + "\" declaredBy=\"" + declaredBy + "\"/>\n";
 				}
