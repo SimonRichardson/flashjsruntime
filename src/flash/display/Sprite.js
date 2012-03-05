@@ -64,6 +64,9 @@ flash.display.Sprite = flash.display.DisplayObjectContainer.extend({
 				hitArea: {type:"flash.display.Sprite", declaredBy:"flash.display.Sprite"},
 				soundTransform: {type:"flash.media.SoundTransform", declaredBy:"flash.display.Sprite"},
 				useHandCursor: {type:"Boolean", declaredBy:"flash.display.Sprite"}
+			},
+			methods: {
+				
 			}
 		}
 	}

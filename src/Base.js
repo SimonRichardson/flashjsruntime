@@ -87,11 +87,18 @@ Base.extend = function(_instance, _static) { // subclass
 		var namespace = staticReflection.namespace;
 		var metadata = staticReflection.metadata || {};
 		
+		// Deep copy known required items
 		if(klass.ancestor.reflection && 'metadata' in klass.ancestor.reflection) {
 			if('accessors' in klass.ancestor.reflection.metadata) {
 				metadata.accessors = metadata.accessors || {};
 				for(var i in klass.ancestor.reflection.metadata.accessors) {
 					metadata.accessors[i] = klass.ancestor.reflection.metadata.accessors[i];
+				}
+			}
+			if('methods' in klass.ancestor.reflection.metadata) {
+				metadata.methods = metadata.methods || {};
+				for(var i in klass.ancestor.reflection.metadata.methods) {
+					metadata.methods[i] = klass.ancestor.reflection.metadata.methods[i];
 				}
 			}
 		}

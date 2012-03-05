@@ -70,6 +70,32 @@ flash.utils.describeType = function(value) {
 				}
 			}
 			
+			var methods = instance.reflection.methods;
+			for(var i in instance) {
+				if(i in methods) {
+					var method = methods[i];
+					
+					var name = i;
+					var declaredBy = method.declaredBy;
+					var returnType = method.returnType;
+					
+					xml += "<method name=\"" + name + "\" declaredBy=\"" + declaredBy + "\" returnType=\"" + returnType + "\"";
+					if(method.parameters && method.parameters.length > 0) {
+						xml += ">\n";
+						
+						for(var j=0; j<method.parameters.length; j++) {
+							var parameter = method.parameters[j];
+							var type = parameter.type;
+							var optional = parameter.optional;
+							
+							xml += "<parameter index=\"" + (j + 1) + "\" type=\"" + type + "\" optional=\"" + optional + "\"/>\n";
+						}
+					} else {
+						xml += " />\n";
+					}
+				}
+			}
+			
 			if(isClass) {
 				xml += "\t<factory/>\n";
 			}

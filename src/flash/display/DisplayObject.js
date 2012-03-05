@@ -261,6 +261,66 @@ flash.display.DisplayObject = flash.events.EventDispatcher.extend({
 				x: {type:"Number", declaredBy:"flash.display.DisplayObject"},
 				y: {type:"Number", declaredBy:"flash.display.DisplayObject"},
 				z: {type:"Number", declaredBy:"flash.display.DisplayObject"}
+			},
+			methods: {
+				getBounds: {
+					declaredBy: "flash.display.DisplayObject",
+					returnType: "flash.geom.Rectangle", 
+					parameters: [
+						{type:"flash.display.DisplayObject", optional:false}
+					]
+				},
+				getRect: {
+					declaredBy: "flash.display.DisplayObject", 
+					returnType: "flash.geom.Rectangle", 
+					parameters: [
+						{type:"flash.display.DisplayObject", optional:false}
+					]
+				},
+				globalToLocal: {
+					declaredBy: "flash.display.DisplayObject", 
+					returnType: "flash.geom.Point", 
+					parameters: [
+						{type:"flash.geom.Point", optional:false}
+					]
+				},
+				globalToLocal3D: {
+					declaredBy: "flash.display.DisplayObject", 
+					returnType: "flash.geom.Vector3D", 
+					parameters: [
+						{type:"flash.geom.Point", optional:false}
+					]
+				},
+				hitTestObject: {
+					declaredBy: "flash.display.DisplayObject", 
+					returnType: "Boolean", 
+					parameters: [
+						{type:"flash.display.DisplayObject", optional:false}
+					]
+				},
+				hitTestPoint: {
+					declaredBy: "flash.display.DisplayObject",
+					returnType: "Boolean", 
+					parameters: [
+						{type:"Number", optional:false},
+						{type:"Number", optional:false},
+						{type:"Boolean", optional:true}
+					]
+				},
+				local3DToGlobal: {
+					declaredBy: "flash.display.DisplayObject",
+					returnType: "flash.geom.Point", 
+					parameters: [
+						{type:"flash.geom.Vector3D", optional:false}
+					]
+				},
+				localToGlobal: {
+					declaredBy: "flash.display.DisplayObject",
+					returnType: "flash.geom.Point", 
+					parameters: [
+						{type:"flash.geom.Point", optional:false}
+					]
+				}
 			}
 		}
 	},
