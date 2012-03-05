@@ -52,6 +52,11 @@ flash.display.Sprite = flash.display.DisplayObjectContainer.extend({
 	}
 }, {
 	reflection: {
-		namespace: new RemedyNamespace('flash', 'display', 'Sprite')
+		namespace: new RemedyNamespace('flash', 'display', 'Sprite'),
+		metadata: {
+			isDynamic: false,
+			isFinal: false,
+			isStatic: false
+		}
 	}
 });

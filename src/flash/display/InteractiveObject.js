@@ -54,4 +54,8 @@ flash.display.InteractiveObject = flash.display.DisplayObject.extend({
 	requestSoftKeyboard: function(){
 		return false;
 	}
+}, {
+	reflection: {
+		namespace: new RemedyNamespace('flash', 'display', 'InteractiveObject')
+	}
 });

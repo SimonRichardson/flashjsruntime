@@ -47,10 +47,15 @@
   <script src="../src/flash/display/SWFVersion.js"></script>
   
   <script src="../src/flash/utils/ByteArray.js"></script>
+  <script src="../src/flash/utils/clearInterval.js"></script>
+  <script src="../src/flash/utils/clearTimeout.js"></script> 
+  <script src="../src/flash/utils/describeType.js"></script> 
   <script src="../src/flash/utils/Endian.js"></script>
   <script src="../src/flash/utils/getDefinitionByName.js"></script>
   <script src="../src/flash/utils/getQualifiedClassName.js"></script>
   <script src="../src/flash/utils/getTimer.js"></script>
+  <script src="../src/flash/utils/setInterval.js"></script>
+  <script src="../src/flash/utils/setTimeout.js"></script>
   <script src="../src/flash/utils/Timer.js"></script> 
 </head>
 <body>
@@ -80,8 +85,13 @@
   	  		this.graphics.beginFill(0xff00ff, 1.0);
   	  		this.graphics.drawCircle(100, 100, 100);
   	  		this.graphics.endFill();
+  	  		
+  	  		trace(flash.utils.describeType(flash.display.Sprite));
   		}
   	});
+  	
+  	
+  	// trace(flash.utils.describeType(new flash.display.Sprite()));
   	
   	var avm = new RemedyAVM();
   	//avm.renderer = new render.RemedyCanvas();

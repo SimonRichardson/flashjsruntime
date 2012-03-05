@@ -58,20 +58,45 @@ Base.extend = function(_instance, _static) { // subclass
 	if(!('namespaces' in reflection)) {
 		reflection.namespaces = [];
 	} else {
-		reflection.namespaces = reflection.namespaces.slice(0);
-	}
-	if(_static) {
-		if('reflection' in _static) {
-			var staticReflection = _static.reflection;
-			var namespace = staticReflection.namespace;
-			reflection.isInterface = staticReflection.isInterface ? true : false;
-			reflection.namespace = namespace;
-			reflection.namespaces.push(namespace);
-			
-			if(window.RemedyAVM) {
-				RemedyAVM.addStaticDefinition(namespace.getQualifiedName(), klass);
+		// Clean up the namespaces from the ancestors
+		var list = [];
+		var ancestorNamespaces = reflection.namespaces.slice(0);
+		var total = ancestorNamespaces.length;
+		for(var i=0; i<total; i++) {
+			var index = -1;
+			for(var j=0; j<list.length; j++) {
+				if(list[j].toString() === ancestorNamespaces[i].toString()) {
+					index = j;
+				}
+			}
+			if(index < 0) {
+				list.push(ancestorNamespaces[i]);
 			}
 		}
+		reflection.namespaces = list;
+	}
+	
+	if(!('metadata' in reflection)) {
+		reflection.metadata = {};
+	}
+	
+	var staticReflection = {};
+	if(_static && 'reflection' in _static) {
+		staticReflection = _static.reflection;
+		var namespace = staticReflection.namespace;
+		var metadata = staticReflection.metadata || {};
+
+		reflection.metadata = metadata;
+		reflection.namespace = namespace;
+		reflection.namespaces.push(namespace);
+		
+		if(window.RemedyAVM) {
+			RemedyAVM.addStaticDefinition(namespace.getQualifiedName(), klass);
+		}
+		
+		staticReflection.ancestor = reflection.ancestor;
+		staticReflection.namespaces = reflection.namespaces;
+		staticReflection.metadata = metadata;
 	}
 	
 	extend.call(klass, _static);

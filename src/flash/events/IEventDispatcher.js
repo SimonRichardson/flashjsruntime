@@ -14,6 +14,8 @@ flash.events.IEventDispatcher = RemedyBase.extend({
 }, {
 	reflection: {
 		namespace: new RemedyNamespace('flash', 'events', 'IEventDispatcher'),
-		isInterface: true
+		metadata: {
+			isInterface: true
+		}
 	}
 });

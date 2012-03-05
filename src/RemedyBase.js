@@ -109,7 +109,8 @@ var RemedyBase = Base.extend({
 	}
 }, {
 	reflection: {
-		namespace: new RemedyNamespace('Object')
+		namespace: new RemedyNamespace('Object'),
+		metadata: {}
 	},
 	init: function(klass) {
 		klass.nativeGetter = ('__defineGetter__' in this);
