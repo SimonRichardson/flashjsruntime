@@ -224,7 +224,16 @@ flash.display.DisplayObject = flash.events.EventDispatcher.extend({
 	}
 }, {
 	reflection: {
-		namespace: new RemedyNamespace('flash', 'display', 'DisplayObject')
+		namespace: new RemedyNamespace('flash', 'display', 'DisplayObject'),
+		metadata: {
+			isFinal: false,
+			isDynamic: true,
+			isStatic: false,
+			accessors: {
+				alpha: {type:"int", declaredBy:"flash.display.DisplayObject"},
+				blendMode: {type:"String", declaredBy:"flash.display.DisplayObject"}
+			}
+		}
 	},
 	properties: {
 		lock: true

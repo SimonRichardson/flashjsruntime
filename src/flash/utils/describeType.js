@@ -46,12 +46,34 @@ flash.utils.describeType = function(value) {
 			}
 			xml += interfaceXML;
 			
-			// how do I get the get/set cache
-			for(var i in value){
-				trace(i);
+			var instance = isClass ? value.prototype : value;
+			var readAccessor = instance.reflection.readAccessor;
+			var writeAccessor = instance.reflection.writeAccessor;
+			for(var i in readAccessor) {
+				var name = i;
+				var access = i in writeAccessor ? "readwrite" : "read";
+				
+				for(var j in metadata) {
+					trace(">>", j);
+				}
+				
+				
+				var meta = metadata[name];
+				var type = meta ? meta.type : "Object";
+				var declaredBy = meta ? meta.declaredBy : "Object";
+				xml += indent + "<accessor name=\"" + name + "\" access=\"" + access + "\" type=\"" + type + "\" declaredBy=\"" + declaredBy + "\"/>\n";
 			}
-			for(var i in value.prototype){
-				trace(i);
+			
+			for(var i in writeAccessor) {
+				
+				if(!(i in readAccessor)) {
+					var name = i;
+					var access = "write";
+					var type = "Object";
+					var declaredBy = "Object";
+					
+					xml += indent + "<accessor name=\"" + name + "\" access=\"" + access + "\" type=\"" + type + "\" declaredBy=\"" + declaredBy + "\"/>\n";
+				}
 			}
 			
 			if(isClass) {

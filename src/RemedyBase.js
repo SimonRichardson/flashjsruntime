@@ -2,18 +2,17 @@ var RemedyBase = Base.extend({
 	constructor: function() {
 		this.base();
 		this._ = {};
-		this.__getHash__ = {};
-		this.__setHash__ = {};
 	},
 	define: function(name, props) {
 		var method,
 			previous,
 			cname;
 		
+		var readAccessor = this.reflection.readAccessor || {};
 		if('get' in props) {
 			value = props['get'];
-			if(name in this.__getHash__) {
-				ancestor = this.__getHash__[name].method;
+			if(name in readAccessor) {
+				ancestor = readAccessor[name].method;
 				if(ancestor && (typeof value == "function") &&
 				   (!ancestor.valueOf || ancestor.valueOf() != value.valueOf()) &&
 				   /\bbase\b/.test(value)) {
@@ -41,13 +40,16 @@ var RemedyBase = Base.extend({
 				cname = 'get' + StringUtils.capitalise(name);
 				this[cname] = value;
 			}
-			this.__getHash__[name] = {name:cname, method:value};
+			
+			readAccessor[name] = {name:cname, method:value};
 		}
+		this.reflection.readAccessor = readAccessor;
 		
+		var writeAccessor = this.reflection.writeAccessor || {};
 		if('set' in props) {
 			value = props['set'];
-			if(name in this.__setHash__) {
-				ancestor = this.__setHash__[name].method;
+			if(name in writeAccessor) {
+				ancestor = writeAccessor[name].method;
 				if(ancestor && (typeof value == "function") &&
 				   (!ancestor.valueOf || ancestor.valueOf() != value.valueOf()) &&
 				   /\bbase\b/.test(value)) {
@@ -75,15 +77,21 @@ var RemedyBase = Base.extend({
 				cname = 'set' + StringUtils.capitalise(name);
 				this[cname] = value;
 			}
-			this.__setHash__[name] = {name:cname, method:value};
+			
+			writeAccessor[name] = {name:cname, method:value};
 		}
+		this.reflection.writeAccessor = writeAccessor;
 	},
 	get: function(name) {
-		if(name in this.__getHash__) {
+		if(!this.reflection.readAccessor) {
+			this.reflection.readAccessor = {};
+		}
+		var readAccessor = this.reflection.readAccessor;
+		if(name in readAccessor) {
 			if(RemedyBase.nativeGetter) {
 				return this[name];				
 			} else {
-				this[this.__getHash__[name].name]();
+				this[readAccessor[name].name]();
 			}
 		} else {
 			throw new ReferenceError("Property " + name + " not found on " + 
@@ -92,11 +100,15 @@ var RemedyBase = Base.extend({
 		}
 	},
 	set: function(name, value) {
-		if(name in this.__setHash__) {
+		if(!this.reflection.writeAccessor) {
+			this.reflection.writeAccessor = {};
+		}
+		var writeAccessor = this.reflection.writeAccessor;
+		if(name in writeAccessor) {
 			if(RemedyBase.nativeGetter) {
 				this[name] = value;				
 			} else {
-				this[this.__setHash__[name].name](value);
+				this[writeAccessor[name].name](value);
 			}
 		} else {
 			throw new ReferenceError("Property " + name + " not found on " + 
