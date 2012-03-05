@@ -70,16 +70,16 @@ flash.utils.describeType = function(value) {
 				}
 			}
 			
-			var methods = instance.reflection.methods;
+			var methods = metadata.methods;
 			for(var i in instance) {
-				if(i in methods) {
+				if(i in methods && (i !== "constructor" && i !== "toString")) {
 					var method = methods[i];
 					
 					var name = i;
 					var declaredBy = method.declaredBy;
 					var returnType = method.returnType;
 					
-					xml += "<method name=\"" + name + "\" declaredBy=\"" + declaredBy + "\" returnType=\"" + returnType + "\"";
+					xml += indent + "<method name=\"" + name + "\" declaredBy=\"" + declaredBy + "\" returnType=\"" + returnType + "\"";
 					if(method.parameters && method.parameters.length > 0) {
 						xml += ">\n";
 						
@@ -88,8 +88,10 @@ flash.utils.describeType = function(value) {
 							var type = parameter.type;
 							var optional = parameter.optional;
 							
-							xml += "<parameter index=\"" + (j + 1) + "\" type=\"" + type + "\" optional=\"" + optional + "\"/>\n";
+							xml += (indent + '\t') + "<parameter index=\"" + (j + 1) + "\" type=\"" + type + "\" optional=\"" + optional + "\"/>\n";
 						}
+						
+						xml += indent + "</method>\n";
 					} else {
 						xml += " />\n";
 					}
