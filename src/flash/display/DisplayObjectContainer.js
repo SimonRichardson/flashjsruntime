@@ -1,8 +1,11 @@
 var flash = flash || {};
 flash.display = flash.display || {};
-flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
+flash.display.DisplayObjectContainer = flash.display.InteractiveObject.extend({
 	constructor: function(){
 		this.base();
+		
+		this._.children = [];
+		this._.mouseChildren = true;
 		
 		var scope = this;
 		
@@ -31,12 +34,26 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 			}
 		};
 		
-		this._.children = [];
+		var processCapture = this._.processCapture;
+		this._.processCapture = function(event){
+			var isMouseEvent = is(event, flash.events.MouseEvent);
+			var eventAllowed = !isMouseEvent || (isMouseEvent && scope.get('mouseChildren'));
+			
+			if(!eventAllowed) {
+				event.stopPropagation();
+				event.stopImmediatePropagation();
+				
+				if(scope.get('mouseEnabled')) {
+					scope.dispatchEvent(event.clone());
+				}
+			} else {
+				processCapture(event);
+			}
+		};
 		
 		this.define('mouseChildren', {
-			get: function(){ return null; },
-			set: function(value){
-			}
+			get: function(){ return scope._.mouseChildren; },
+			set: function(value) { scope._.mouseChildren = value; }
 		});
 		this.define('tabChildren', {
 			get: function(){ return null; },
@@ -49,16 +66,6 @@ flash.display.DisplayObjectContainer = flash.display.DisplayObject.extend({
 		this.define('textSnapshot', {
 			get: function(){ return null; }
 		});
-	},
-	dispatchEvent: function(event) {
-		event._.setTargets(this);
-		
-		this.base(event);
-		
-		if(event.get('bubbles') && (this.get('parent') && this.get('parent') != this.get('root'))) {
-			// We're going to assume that it's a IEventDispatcher?
-			this.get('parent').dispatchEvent(event);
-		}
 	},
 	addChild: function(child) {
 		return this.addChildAt(child, this.get('numChildren'));

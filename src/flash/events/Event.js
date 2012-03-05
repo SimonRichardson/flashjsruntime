@@ -24,6 +24,13 @@ flash.events.Event = RemedyBase.extend({
 			if(target) { scope._.target = target; }
 		};
 		
+		this._.isPropagationStopped = function() {
+			return scope._.stopPropagation;
+		};
+		this._.isImmediatePropagationStopped = function() {
+			return scope._.stopImmediatePropagation;
+		};
+		
 		this.define("target", {
 			get: function() { return scope._.target; }
 		});
@@ -63,7 +70,7 @@ flash.events.Event = RemedyBase.extend({
 		this._.stopPropagation = true;
 	},
 	clone: function() {
-		return new Event(this.type, this.bubbles, this.cancelable);
+		return new Event(this.get('type'), this.get('bubbles'), this.get('cancelable'));
 	}, 
 	formatToString: function(name) {
 		var str = '[' + name;

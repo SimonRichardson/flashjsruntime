@@ -4,9 +4,74 @@ flash.events.EventDispatcher = RemedyBase.extend({
 	constructor: function(target) {
 		this.base();
 		this._.target = target;
-		this._.hash = {};
-		this._.defer = [];
+		this._.listeners = {};
+		this._.captureListeners = {};
 		this._.dispatching = false;
+		
+		var scope = this;
+		
+		this._.createAncestorChain = function() {
+			return null;
+		};
+		
+		this._.handleCapture = function(event, ancestors){
+			if(!ancestors || ancestors.length <= 0) {
+				return;
+			}
+			
+			var index = ancestors.length;
+			while(--index > -1) {
+				var dispatcher = ancestors[index];
+				dispatcher._.processCapture(event);
+				if(event._.isPropagationStopped()) {
+					break;
+				}
+			}
+		};
+		this._.processCapture = function(event){
+			event._.setTargets(scope._.target || scope);
+			
+			var list = scope._.captureListeners[event.get('type')];
+			if(list) {
+				scope._.processListeners(event, list);
+			}
+		};
+		
+		this._.handleBubble = function(event, ancestors){
+			if(!ancestors || ancestors.length <= 0) {
+				return;
+			}
+			
+			var index = ancestors.length;
+			while(--index > -1) {
+				var dispatcher = ancestors[index];
+				dispatcher._.processBubble(event);
+				if(event._.isPropagationStopped()) {
+					break;
+				}
+			}
+		};
+		this._.processBubble = function(event){
+			event._.setTargets(scope._.target || scope);
+			
+			var list = scope._.listeners[event.get('type')];
+			if(list) {
+				scope._.processListeners(event, list);
+			}
+		};
+		
+		this._.processListeners = function(event, list){
+			var total = list.length;
+			for(var i = 0; i<total; i++) {
+				if(list[i].method(event) === false) {
+					event.stopPropagation();
+					event.preventDefault();
+				}
+				if(event._.isImmediatePropagationStopped()) {
+					break;
+				}
+			}
+		};
 	},
 	addEventListener: function(type, listener, useCapture, priority, useWeakReference) {
 		if(arguments.length < 2) {
@@ -17,7 +82,8 @@ flash.events.EventDispatcher = RemedyBase.extend({
 		if(null == type) throw new TypeError('Parameter type must be non-null.', 2007);
 		if(null == listener) throw new TypeError('Parameter listener must be non-null.', 2007);
 		
-		var list = (type in this._.hash) ? this._.hash[type] : [];
+		var listType = useCapture ? this._.captureListeners : this._.listeners;
+		var list = (type in listType) ? listType : [];
 		
 		var eventListener = new flash.events.EventDispatcher.EventListener(type, listener, useCapture, priority);
 		if(listener.__bind__) {
@@ -30,7 +96,7 @@ flash.events.EventDispatcher = RemedyBase.extend({
 		list.push(eventListener);
 		list.sort(flash.events.EventDispatcher.sort);
 		
-		this._.hash[type] = list;
+		listType[type] = list;
 	},
 	dispatchEvent: function(event){
 		this._.dispatching = true;
@@ -43,32 +109,28 @@ flash.events.EventDispatcher = RemedyBase.extend({
 		if(null == event) throw new TypeError('Cannot access a property or method of a ' + 
 											  'null object reference.', 1009);
 		
-		var list = this._.hash[event.get('type')];
-		if(list) {
-			var index = list.length;
-			while(--index > -1) {
-				var listener = list[index];
-				if(!listener.removed) {
-					listener.method(event);
-				}
+		var ancestors = this._.createAncestorChain();
+		
+		event._.eventPhase = flash.events.EventPhase.CAPTURING_PHASE;
+		this._.handleCapture(event, ancestors);
+		
+		if(!event._.isPropagationStopped()){
+			event._.eventPhase = flash.events.EventPhase.AT_TARGET;
+			var list = this._.listeners[event.get('type')];
+			
+			if(list) {
+				this._.processListeners(event, list);
 			}
-			
-			// Remove items when
-			var defer = this._.defer;
-			
-			index = defer.length;
-			while(--index > -1) {
-				var loc = list.indexOf(defer[index]);
-				if(loc < 0) {
-					throw new IllegalOperationError();
-				} else {
-					list.splice(loc, 1);
-				}
-			}
-			
-			defer.length = 0;
 		}
+		
+		if(!event._.isPropagationStopped()) {
+			event._.eventPhase = flash.events.EventPhase.BUBBLING_PHASE;
+			this._.handleBubble(event, ancestors);
+		}
+		
 		this._.dispatching = false;
+		
+		return !event.isDefaultPrevented();
 	},
 	hasEventListener: function(type){
 		if(arguments.length != 1) {
@@ -78,7 +140,7 @@ flash.events.EventDispatcher = RemedyBase.extend({
 		}
 		if(null == type) throw new TypeError('Parameter type must be non-null.', 2007);
 		
-		return this._.hash[type] !== undefined;
+		return this._.listeners[type] || this._.captureListeners[type];
 	},
 	removeEventListener: function(type, listener, useCapture){
 		if(arguments.length < 2) {
@@ -91,18 +153,13 @@ flash.events.EventDispatcher = RemedyBase.extend({
 		
 		useCapture = useCapture ? true : false;
 		
-		var list = this._.hash[type];
-		
+		var list = useCapture ? this._.captureListeners : this._.listeners;
+				
 		var index = list.length;
 		while(--index > -1) {
 			var eventListener = list[index];
-			if(eventListener.listener === listener && eventListener.useCapture === useCapture) {
-				if(this._.dispatching) {
-					eventListener.removed = true;
-					this._.defer.push(eventListener);
-				} else {
-					list.splice(index, 1);
-				}
+			if(eventListener.listener === listener) {
+				list.splice(index, 1);
 			}
 		}
 	},
@@ -119,7 +176,7 @@ flash.events.EventDispatcher = RemedyBase.extend({
 			return ancestor.willTrigger(type);
 		}
 		
-		return this._.hash[type] !== undefined;
+		return hasEventListener(type);
 	}
 }, {
 	reflection: {
@@ -135,7 +192,6 @@ flash.events.EventDispatcher = RemedyBase.extend({
 			this.useCapture = useCapture;
 			this.priority = priority;
 			this.method = null;
-			this.removed = false;
 		};
 	}
 });

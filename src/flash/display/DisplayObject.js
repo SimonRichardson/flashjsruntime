@@ -33,6 +33,18 @@ flash.display.DisplayObject = flash.events.EventDispatcher.extend({
 			}
 		};
 		
+		this._.createAncestorChain = function() {
+			var list = [];
+			
+			var parent = scope.get('parent');
+			while(parent != null) {
+				list.push(parent);
+				parent = parent.parent;
+			}
+			
+			return list;
+		};
+		
 		// define
 		this._.accessibilityProperties = null;
 		this._.alpha = 1.0;

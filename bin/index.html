@@ -24,6 +24,7 @@
   <script src="../src/flash/events/EventPhase.js"></script>
   <script src="../src/flash/events/IEventDispatcher.js"></script>
   <script src="../src/flash/events/EventDispatcher.js"></script>
+  <script src="../src/flash/events/MouseEvent.js"></script>
   <script src="../src/flash/events/TimerEvent.js"></script>
   
   <script src="../src/flash/geom/ColorTransform.js"></script>
@@ -34,6 +35,7 @@
   
   <script src="../src/flash/display/ActionScriptVersion.js"></script>
   <script src="../src/flash/display/DisplayObject.js"></script>
+  <script src="../src/flash/display/InteractiveObject.js"></script>
   <script src="../src/flash/display/DisplayObjectContainer.js"></script>
   <script src="../src/flash/display/Bitmap.js"></script>
   <script src="../src/flash/display/BlendMode.js"></script>
@@ -82,6 +84,8 @@
   	});
   	
   	var avm = new RemedyAVM();
+  	//avm.renderer = new render.RemedyCanvas();
+  	//avm.renderer = new render.RemedySVG();
   	avm.renderer = new render.RemedyDOM();
   	avm.boot(Test);
   </script>

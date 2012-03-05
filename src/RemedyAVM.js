@@ -2,9 +2,14 @@ var RemedyAVM = RemedyBase.extend({
 	constructor: function(){
 		this.base();
 		
-		this._.root = null;		
-		this._.stage = flash.display.Stage.create();
+		this._.root = null;
+		
+		var stage = flash.display.Stage.create();
+		
+		this._.stage = stage;
 		this._.stage.name = null;
+		
+		RemedyAVM.stage = stage;
 		
 		this._.bootTime = new Date().getTime();
 		this._.renderer = RemedyAVM.renderer;
@@ -20,6 +25,7 @@ var RemedyAVM = RemedyBase.extend({
 			get: function(){ return scope._.renderer; },
 			set: function(value){ 
 				scope._.renderer = value;
+				RemedyAVM.renderer = value;
 				scope._.stage.invalidate();
 			}
 		});
