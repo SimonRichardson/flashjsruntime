@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.display = flash.display || {};
-flash.display.BlendMode = RemedyBase.extend({
+flash.display.BlendMode = FlashObject.extend({
 	constructor: function(){
 		this.base();
 	}

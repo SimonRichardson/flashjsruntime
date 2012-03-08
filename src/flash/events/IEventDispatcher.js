@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.events = flash.events || {};
-flash.events.IEventDispatcher = RemedyBase.extend({
+flash.events.IEventDispatcher = FlashObject.extend({
 	addEventListener: function(type, listener, useCapture, priority, useWeakReference) {
 	},
 	dispatchEvent: function(event){

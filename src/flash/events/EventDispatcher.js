@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.events = flash.events || {};
-flash.events.EventDispatcher = RemedyBase.extend({
+flash.events.EventDispatcher = FlashObject.extend({
 	constructor: function(target) {
 		this.base();
 		this._.target = target;

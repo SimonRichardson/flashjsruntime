@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.display = flash.display || {};
-flash.display.Graphics = RemedyBase.extend({
+flash.display.Graphics = FlashObject.extend({
 	constructor: function(context){
 		this.base();
 		

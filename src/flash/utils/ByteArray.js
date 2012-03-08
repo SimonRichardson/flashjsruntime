@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.utils = flash.utils || {};
-flash.utils.ByteArray = RemedyBase.extend({
+flash.utils.ByteArray = FlashObject.extend({
 	constructor: function(){
 		this.base();
 		

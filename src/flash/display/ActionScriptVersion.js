@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.display = flash.display || {};
-flash.display.ActionScriptVersion = RemedyBase.extend({
+flash.display.ActionScriptVersion = FlashObject.extend({
 	constructor: function(){
 		this.base();
 	}

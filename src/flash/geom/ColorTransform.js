@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.geom = flash.geom || {};
-flash.geom.ColorTransform = RemedyBase.extend({
+flash.geom.ColorTransform = FlashObject.extend({
 	constructor: function(redMultiplier, greenMultiplier, blueMultiplier, alphaMultiplier, redOffset, greenOffset, blueOffset, alphaOffset){
 		this.base();
 		

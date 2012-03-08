@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.geom = flash.geom || {};
-flash.geom.Transform = RemedyBase.extend({
+flash.geom.Transform = FlashObject.extend({
 	constructor: function(displayObject){
 		this.base();
 		

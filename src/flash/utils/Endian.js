@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.utils = flash.utils || {};
-flash.utils.Endian = RemedyBase.extend({
+flash.utils.Endian = FlashObject.extend({
 	constructor: function(){
 		this.base();
 	}

@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.events = flash.events || {};
-flash.events.Event = RemedyBase.extend({
+flash.events.Event = FlashObject.extend({
 	constructor: function(type, bubbles, cancelable) {
 		if(null == type) throw new TypeError('Parameter type must be non-null.', 2007);
 		

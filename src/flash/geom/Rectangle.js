@@ -1,6 +1,6 @@
 var flash = flash || {};
 flash.geom = flash.geom || {};
-flash.geom.Rectangle = RemedyBase.extend({
+flash.geom.Rectangle = FlashObject.extend({
 	constructor: function(x, y, width, height){
 		this.base();
 		
