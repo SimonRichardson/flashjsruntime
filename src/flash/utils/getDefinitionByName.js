@@ -2,7 +2,7 @@ var flash = flash || {};
 flash.utils = flash.utils || {};
 flash.utils.getDefinitionByName = function(qname) {
 	if(/::/.test(qname)) {
-		qname = qname.replace(/::/, '.');
+		qname = qname.replace(/::/g, '.');
 	}
 	
 	if(RemedyAVM.hasStaticDefinition(qname)) {

@@ -56,7 +56,18 @@ flash.display.Sprite = flash.display.DisplayObjectContainer.extend({
 		metadata: {
 			isDynamic: false,
 			isFinal: false,
-			isStatic: false
+			isStatic: false,
+			accessors: {
+				buttonMode: {type:"Boolean", declaredBy:"flash.display.Sprite"},
+				dropTarget: {type:"flash.display.DisplayObject", declaredBy:"flash.display.Sprite"},
+				graphics: {type:"flash.display.Graphics", declaredBy:"flash.display.Sprite"},
+				hitArea: {type:"flash.display.Sprite", declaredBy:"flash.display.Sprite"},
+				soundTransform: {type:"flash.media.SoundTransform", declaredBy:"flash.display.Sprite"},
+				useHandCursor: {type:"Boolean", declaredBy:"flash.display.Sprite"}
+			},
+			methods: {
+				
+			}
 		}
 	}
 });

@@ -56,6 +56,19 @@ flash.display.InteractiveObject = flash.display.DisplayObject.extend({
 	}
 }, {
 	reflection: {
-		namespace: new RemedyNamespace('flash', 'display', 'InteractiveObject')
+		namespace: new RemedyNamespace('flash', 'display', 'InteractiveObject'),
+		metadata: {
+			accessors: {
+				accessibilityImplementation: {type: "flash.accessibility.AccessibilityImplementatio", declaredBy:"flash.display.InteractiveObject"},
+				contextMenu: {type: "flash.display.NativeMenu", declaredBy:"flash.display.InteractiveObject"},
+				doubleClickEnabled: {type: "Boolean", declaredBy:"flash.display.InteractiveObject"},
+				focusRect: {type: "flash.geom.Rectangle", declaredBy:"flash.display.InteractiveObject"},
+				mouseEnabled: {type: "Boolean", declaredBy:"flash.display.InteractiveObject"},
+				needsSoftKeyboard: {type: "Boolean", declaredBy:"flash.display.InteractiveObject"},
+				softKeyboardInputAreaOfInterest: {type: "flash.geom.Rectangle", declaredBy:"flash.display.InteractiveObject"},
+				tabEnabled: {type: "Boolean", declaredBy:"flash.display.InteractiveObject"},
+				tabIndex: {type: "int", declaredBy:"flash.display.InteractiveObject"}
+			}
+		}
 	}
 });

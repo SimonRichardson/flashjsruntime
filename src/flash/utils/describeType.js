@@ -52,27 +52,49 @@ flash.utils.describeType = function(value) {
 			for(var i in readAccessor) {
 				var name = i;
 				var access = i in writeAccessor ? "readwrite" : "read";
-				
-				for(var j in metadata) {
-					trace(">>", j);
-				}
-				
-				
-				var meta = metadata[name];
+				var meta = metadata.accessors[name];
 				var type = meta ? meta.type : "Object";
 				var declaredBy = meta ? meta.declaredBy : "Object";
 				xml += indent + "<accessor name=\"" + name + "\" access=\"" + access + "\" type=\"" + type + "\" declaredBy=\"" + declaredBy + "\"/>\n";
 			}
 			
 			for(var i in writeAccessor) {
-				
 				if(!(i in readAccessor)) {
 					var name = i;
 					var access = "write";
-					var type = "Object";
-					var declaredBy = "Object";
+					var meta = metadata.accessors[name];
+					var type = meta ? meta.type : "Object";
+					var declaredBy = meta ? meta.declaredBy : "Object";
 					
 					xml += indent + "<accessor name=\"" + name + "\" access=\"" + access + "\" type=\"" + type + "\" declaredBy=\"" + declaredBy + "\"/>\n";
+				}
+			}
+			
+			var methods = metadata.methods;
+			for(var i in instance) {
+				if(i in methods && (i !== "constructor" && i !== "toString")) {
+					var method = methods[i];
+					
+					var name = i;
+					var declaredBy = method.declaredBy;
+					var returnType = method.returnType;
+					
+					xml += indent + "<method name=\"" + name + "\" declaredBy=\"" + declaredBy + "\" returnType=\"" + returnType + "\"";
+					if(method.parameters && method.parameters.length > 0) {
+						xml += ">\n";
+						
+						for(var j=0; j<method.parameters.length; j++) {
+							var parameter = method.parameters[j];
+							var type = parameter.type;
+							var optional = parameter.optional;
+							
+							xml += (indent + '\t') + "<parameter index=\"" + (j + 1) + "\" type=\"" + type + "\" optional=\"" + optional + "\"/>\n";
+						}
+						
+						xml += indent + "</method>\n";
+					} else {
+						xml += " />\n";
+					}
 				}
 			}
 			

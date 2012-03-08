@@ -50,10 +50,12 @@ Base.extend = function(_instance, _static) { // subclass
 	if(!this.prototype.reflection) {
 		this.prototype.reflection = {};
 	}
+	
 	klass.prototype.reflection = reflection = {};
 	for(var i in this.prototype.reflection) {
 		reflection[i] = this.prototype.reflection[i];
 	}
+	
 	reflection.ancestor = this;
 	if(!('namespaces' in reflection)) {
 		reflection.namespaces = [];
@@ -80,12 +82,27 @@ Base.extend = function(_instance, _static) { // subclass
 		reflection.metadata = {};
 	}
 	
-	var staticReflection = {};
 	if(_static && 'reflection' in _static) {
-		staticReflection = _static.reflection;
+		var staticReflection = _static.reflection || {};
 		var namespace = staticReflection.namespace;
 		var metadata = staticReflection.metadata || {};
-
+		
+		// Deep copy known required items
+		if(klass.ancestor.reflection && 'metadata' in klass.ancestor.reflection) {
+			if('accessors' in klass.ancestor.reflection.metadata) {
+				metadata.accessors = metadata.accessors || {};
+				for(var i in klass.ancestor.reflection.metadata.accessors) {
+					metadata.accessors[i] = klass.ancestor.reflection.metadata.accessors[i];
+				}
+			}
+			if('methods' in klass.ancestor.reflection.metadata) {
+				metadata.methods = metadata.methods || {};
+				for(var i in klass.ancestor.reflection.metadata.methods) {
+					metadata.methods[i] = klass.ancestor.reflection.metadata.methods[i];
+				}
+			}
+		}
+		
 		reflection.metadata = metadata;
 		reflection.namespace = namespace;
 		reflection.namespaces.push(namespace);
